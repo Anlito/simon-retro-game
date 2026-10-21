@@ -1,0 +1,14 @@
+# Dépendances (recréées par « npm install »)
+node_modules/
+# Réglages propres à ce poste
+.claude/
+# Copie de travail du ZIP de maquettes (référence, non publiée)
+_source_zip/
+# Sauvegardes d’exemple (recréées par « npm run exemples »)
+exemples/
+# Archive ZIP (recréée par « npm run archive »)
+dist/
+# Bibliothèques Arduino du projet (recréées par « npm run firmware »)
+tools/arduino-libs/
+
+.cache/

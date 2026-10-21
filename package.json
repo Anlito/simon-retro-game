@@ -1,0 +1,17 @@
+{
+  "name": "simon-retro-game",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Projet Simon Rétro Game (5e et 4e) : carnet de projet, programmation en blocs avec Labo Blocs, câblage, boîtier et outil professeur",
+  "scripts": {
+    "test": "node --test tests/*.test.js",
+    "start": "node tools/serve.js",
+    "exemples": "node tools/exemples-equipes.js",
+    "recette": "node tools/recette-centrale.js",
+    "archive": "node tools/archive.js",
+    "pretest": "node tools/dependances-tests.js"
+  },
+  "devDependencies": {
+    "puppeteer-core": "^25.13.0"
+  }
+}

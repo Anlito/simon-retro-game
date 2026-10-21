@@ -1,0 +1,40 @@
+# Publie le dossier site/ sur GitHub Pages à chaque envoi sur la branche main.
+name: Publier le site
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  publier:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deploiement.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      # Les tests du moteur doivent passer avant toute publication.
+      - run: npm test
+      # Copie de secours des réglages du collège (classes, chemin) : la dernière version publiée par Labo Blocs.
+      - name: Mettre à jour les réglages du collège
+        run: |
+          curl -fsSL https://anlito.github.io/labo-blocs/site/college.js -o /tmp/college.js && grep -q definirCollege /tmp/college.js && cp /tmp/college.js site/donnees/college.js || echo "Réglages du collège injoignables : la copie du dépôt est gardée."
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: site
+      - id: deploiement
+        uses: actions/deploy-pages@v4

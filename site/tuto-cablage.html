@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tutoriel de câblage — Simon Rétro Game</title>
+<link rel="icon" href="img/favicon.svg" type="image/svg+xml">
+<style>
+  /* Charte du briefing Simon : fond nuit, panneaux bleu ardoise, les quatre couleurs du Simon. Polices du système. */
+  :root {
+    --nuit: #0B1220; --panneau: #121C30; --trait: #24314C; --texte: #EEF2FA; --discret: #A9B6CC;
+    --bleu: #3B82F6; --vert: #23C17A; --jaune: #FFCF3F; --rouge: #FF5566; --accent: var(--bleu);
+    --police: 'Segoe UI', system-ui, -apple-system, sans-serif; --titres: 'Trebuchet MS', 'Segoe UI', sans-serif;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; min-height: 100%; }
+  body { background: var(--nuit); color: var(--texte); font: 400 1rem/1.5 var(--police); }
+  a { color: #8EC1FF; }
+  :focus-visible { outline: 3px solid var(--jaune); outline-offset: 3px; }
+  .haut { display: flex; align-items: center; gap: 1rem; padding: 0.75rem 1.5rem; border-bottom: 1px solid var(--trait); }
+  .haut strong { font-family: var(--titres); font-size: 1.125rem; }
+  .haut .compteur { margin-left: auto; color: var(--discret); font-variant-numeric: tabular-nums; }
+  .ruban { height: 0.35rem; background: linear-gradient(90deg, var(--bleu) 0 25%, var(--vert) 25% 50%, var(--jaune) 50% 75%, var(--rouge) 75% 100%); }
+  main { max-width: 62rem; margin: 0 auto; padding: 1.5rem; }
+  .etape[hidden] { display: none; }
+  .surtitre { color: var(--accent); font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; font-size: 0.8125rem; margin: 0 0 0.5rem; }
+  h1 { font-family: var(--titres); font-size: clamp(1.75rem, 3.5vw, 2.5rem); margin: 0 0 0.75rem; line-height: 1.15; }
+  h2 { font-family: var(--titres); font-size: 1.125rem; margin: 1.25rem 0 0.5rem; }
+  .intro { color: var(--discret); max-width: 48rem; font-size: 1.0625rem; }
+  .cartes { display: flex; flex-wrap: wrap; gap: 1rem; margin: 1rem 0; }
+  .carte { flex: 1 1 16rem; background: var(--panneau); border: 1px solid var(--trait); border-radius: 0.6rem; padding: 1rem 1.2rem; }
+  .carte strong { display: block; margin-bottom: 0.25rem; }
+  table { width: 100%; border-collapse: collapse; background: var(--panneau); border-radius: 0.6rem; overflow: hidden; margin: 1rem 0; }
+  th, td { padding: 0.6rem 0.8rem; text-align: left; border-bottom: 1px solid var(--trait); }
+  th { color: var(--discret); font-size: 0.8125rem; text-transform: uppercase; letter-spacing: 0.05em; }
+  .pastille { display: inline-block; width: 0.9rem; height: 0.9rem; border-radius: 50%; vertical-align: -0.1rem; margin-right: 0.45rem; border: 2px solid #FFFFFF; }
+  .broche { font-family: Consolas, 'Courier New', monospace; font-weight: 700; background: #0B1220; border: 1px solid var(--trait); border-radius: 0.3rem; padding: 0.05rem 0.4rem; }
+  ol.gestes { padding-left: 1.4rem; }
+  ol.gestes li { margin: 0.4rem 0; }
+  .attention { border-left: 0.35rem solid var(--jaune); background: #2A2512; padding: 0.8rem 1rem; border-radius: 0.3rem; margin: 1rem 0; }
+  .liste-verif { list-style: none; padding: 0; }
+  .liste-verif li { margin: 0.4rem 0; }
+  .liste-verif label { display: flex; gap: 0.6rem; align-items: flex-start; cursor: pointer; }
+  .liste-verif input { width: 1.2rem; height: 1.2rem; margin-top: 0.15rem; accent-color: var(--vert); }
+  figure.schema { margin: 1rem 0; background: var(--panneau); border: 1px solid var(--trait); border-radius: 0.6rem; padding: 1rem; }
+  figure.schema svg { width: 100%; height: auto; display: block; }
+  figure.schema figcaption { color: var(--discret); font-size: 0.875rem; margin-top: 0.5rem; }
+  .bas { display: flex; align-items: center; justify-content: space-between; gap: 1rem; max-width: 62rem; margin: 0 auto; padding: 0 1.5rem 2rem; }
+  .bas button { font: 700 1rem var(--police); min-height: 2.75rem; padding: 0 1.2rem; border-radius: 0.4rem; cursor: pointer; border: 2px solid var(--bleu); background: transparent; color: var(--texte); }
+  .bas button.suivant { background: var(--bleu); }
+  .bas button:disabled { opacity: 0.4; cursor: default; }
+  .points { display: flex; gap: 0.5rem; }
+  .points button { width: 0.9rem; height: 0.9rem; min-height: 0; padding: 0; border-radius: 50%; border: 2px solid var(--discret); background: transparent; }
+  .points button[aria-current="step"] { background: var(--jaune); border-color: var(--jaune); }
+  @media (max-width: 640px) { main { padding: 1rem; } .haut { padding: 0.75rem 1rem; } }
+  @media print { body { background: #FFFFFF; color: #000000; } .etape[hidden] { display: block; } .bas, .haut .compteur { display: none; } table, .carte, figure.schema { background: #FFFFFF; } }
+</style>
+</head>
+<body>
+<div class="ruban" aria-hidden="true"></div>
+<header class="haut">
+  <img src="img/favicon.svg" alt="" width="32" height="32">
+  <strong>Tutoriel de câblage · Simon Rétro Game</strong>
+  <span class="compteur" aria-live="polite"></span>
+</header>
+
+<main>
+  <!-- Étape 1 -->
+  <section class="etape" data-accent="bleu" aria-labelledby="titre-1">
+    <p class="surtitre">Câblage</p>
+    <h1 id="titre-1">Les fils Dupont</h1>
+    <p class="intro">Ton Simon a deux familles de composants : des capteurs (les boutons) et des actionneurs (les LED et le buzzer). Chacun a ses fils à repérer avant de brancher quoi que ce soit.</p>
+    <div class="cartes">
+      <div class="carte"><strong>Fil coloré → signal</strong>Il relie le composant à sa broche numérique de l’Arduino. Pour une LED, il porte l’ordre d’allumage ; pour un bouton, l’information « appuyé ou non ».</div>
+      <div class="carte"><strong>Fil noir ou marron → masse (GND)</strong>C’est le retour du courant. Il va sur le rail − de la platine d’essai, pas directement sur l’Arduino.</div>
+    </div>
+    <h2>Pourquoi le rail − de la platine ?</h2>
+    <p>Les 4 boutons, les 4 LED et le buzzer partagent la même masse. Plutôt que 9 fils noirs sur 9 broches GND, on les regroupe tous sur le <strong>rail −</strong> (bleu) de la platine, et <strong>un seul fil</strong> relie ce rail au GND de l’Arduino.</p>
+  </section>
+
+  <!-- Étape 2 -->
+  <section class="etape" data-accent="vert" aria-labelledby="titre-2" hidden>
+    <p class="surtitre">Câblage</p>
+    <h1 id="titre-2">Choisis tes composants</h1>
+    <p class="intro">Un Simon complet, c’est 9 composants. Repère-les avant de commencer.</p>
+    <table>
+      <thead><tr><th scope="col">Couleur</th><th scope="col">Bouton</th><th scope="col">LED</th></tr></thead>
+      <tbody class="lignes-composants"></tbody>
+    </table>
+    <div class="carte"><strong>+ 1 buzzer piézo</strong>Il joue une note à chaque appui, et une musique de victoire ou un son d’erreur. Il n’a pas de couleur : il sert pour les 4 boutons.</div>
+    <h2>Le matériel du groupe</h2>
+    <p>4 boutons poussoirs · 4 LED (bleue, verte, jaune, rouge) · 1 buzzer piézo · 1 platine d’essai · des fils Dupont · 1 carte Arduino Uno et son câble USB.</p>
+  </section>
+
+  <!-- Étape 3 -->
+  <section class="etape" data-accent="jaune" aria-labelledby="titre-3" hidden>
+    <p class="surtitre">Câblage</p>
+    <h1 id="titre-3">Brancher les boutons</h1>
+    <p class="intro">Un bouton a 2 fils : un va vers sa broche numérique, l’autre vers le rail − de la platine.</p>
+    <table>
+      <thead><tr><th scope="col">Bouton</th><th scope="col">Patte 1 (fil coloré)</th><th scope="col">Patte 2 (fil noir ou marron)</th></tr></thead>
+      <tbody class="lignes-boutons"></tbody>
+    </table>
+    <ol class="gestes">
+      <li>Place le bouton sur la platine.</li>
+      <li>Relie le fil coloré à sa broche (D2, D4, D6 ou D8 selon la couleur). Une seule broche par bouton.</li>
+      <li>Relie l’autre fil au rail − de la platine.</li>
+    </ol>
+    <p>Le bouton relie la broche à la masse quand on appuie : la carte le lit « appuyé » (HAUT dans les blocs).</p>
+  </section>
+
+  <!-- Étape 4 -->
+  <section class="etape" data-accent="rouge" aria-labelledby="titre-4" hidden>
+    <p class="surtitre">Câblage</p>
+    <h1 id="titre-4">Brancher les LED et le buzzer</h1>
+    <p class="intro">Pour chaque LED : le fil de signal sur sa broche de l’Arduino, la masse sur le rail − de la platine.</p>
+    <table>
+      <thead><tr><th scope="col">Composant</th><th scope="col">Signal</th><th scope="col">Alimentation</th><th scope="col">Masse</th></tr></thead>
+      <tbody class="lignes-sorties"></tbody>
+    </table>
+    <figure class="schema">
+      <svg class="schema-broches" viewBox="0 0 620 170" role="img" aria-labelledby="legende-schema"></svg>
+      <figcaption id="legende-schema">La rangée DIGITAL de l’Arduino Uno : chaque broche utilisée, avec la couleur de son composant (B = bouton, L = LED, ♪ = buzzer).</figcaption>
+    </figure>
+  </section>
+
+  <!-- Étape 5 -->
+  <section class="etape" data-accent="bleu" aria-labelledby="titre-5" hidden>
+    <p class="surtitre">Câblage</p>
+    <h1 id="titre-5">Masses et vérification avant l’USB</h1>
+    <p class="intro">Tous les fils noirs ou marron (4 boutons, 4 LED, le buzzer) arrivent sur le même rail −, relié par un seul fil au GND de l’Arduino.</p>
+    <ul class="liste-verif">
+      <li><label><input type="checkbox"> <span>Les 4 boutons sont câblés sur D2, D4, D6, D8</span></label></li>
+      <li><label><input type="checkbox"> <span>Les 4 LED sont câblées sur D3, D5, D7, D9</span></label></li>
+      <li><label><input type="checkbox"> <span>Le buzzer est câblé sur D10</span></label></li>
+      <li><label><input type="checkbox"> <span>Toutes les masses sont sur le rail − de la platine (rangée bleue, pas rouge)</span></label></li>
+      <li><label><input type="checkbox"> <span>Un seul fil relie le rail − au GND de l’Arduino : l’étape la plus importante</span></label></li>
+      <li><label><input type="checkbox"> <span>Aucun fil ne touche une broche voisine par accident</span></label></li>
+    </ul>
+    <div class="attention"><strong>Appelle le professeur</strong> pour qu’il valide ton câblage avant de brancher le câble USB. Une fois branché, rien ne doit s’allumer tout seul : c’est normal, la carte attend ton programme.</div>
+    <p>Ensuite, coche « Avant de brancher le câble USB » dans l’onglet Câblage de ton carnet, puis passe à la programmation.</p>
+  </section>
+</main>
+
+<nav class="bas" aria-label="Étapes du tutoriel">
+  <button type="button" class="precedent">← Précédent</button>
+  <div class="points"></div>
+  <button type="button" class="suivant">Suivant →</button>
+</nav>
+
+<script src="donnees/cablage.js"></script>
+<script>
+  (function () {
+    'use strict';
+    var C = window.CABLAGE;
+    var etapes = Array.prototype.slice.call(document.querySelectorAll('.etape'));
+    var ACCENTS = { bleu: '#3B82F6', vert: '#23C17A', jaune: '#FFCF3F', rouge: '#FF5566' };
+    var pastille = function (c) { return '<span class="pastille" style="background:' + c.hex + '" aria-hidden="true"></span>'; };
+    var broche = function (b) { return '<span class="broche">' + b + '</span>'; };
+    var Maj = function (s) { return s.charAt(0).toUpperCase() + s.slice(1); };
+
+    // Tableaux : tirés du standard de câblage (donnees/cablage.js), le même que les exercices.
+    document.querySelector('.lignes-composants').innerHTML = C.couleurs.map(function (c) {
+      return '<tr><th scope="row">' + pastille(c) + Maj(c.nom) + '</th><td>1 bouton poussoir</td><td>1 LED ' + c.fem + '</td></tr>';
+    }).join('');
+    document.querySelector('.lignes-boutons').innerHTML = C.couleurs.map(function (c) {
+      return '<tr><th scope="row">' + pastille(c) + 'Bouton ' + c.nom + '</th><td>Broche ' + broche(c.bouton) + '</td><td>Rail − de la platine</td></tr>';
+    }).join('');
+    document.querySelector('.lignes-sorties').innerHTML = C.couleurs.map(function (c) {
+      return '<tr><th scope="row">' + pastille(c) + 'LED ' + c.fem + '</th><td>Fil coloré → ' + broche(c.led) + '</td><td>—</td><td>Rail −</td></tr>';
+    }).join('') + '<tr><th scope="row"><span class="pastille" style="background:#8593AC" aria-hidden="true"></span>Buzzer</th><td>Fil coloré → ' + broche(C.buzzer) + '</td><td>Fil blanc ou rouge → 5V</td><td>Fil noir ou marron → rail −</td></tr>';
+
+    // Schéma de la rangée DIGITAL : D13 à D2 de gauche à droite, comme sur la carte.
+    var svg = document.querySelector('.schema-broches');
+    var rangee = ['GND', 'D13', 'D12', 'D11', 'D10', 'D9', 'D8', 'D7', 'D6', 'D5', 'D4', 'D3', 'D2'];
+    var role = {};
+    C.couleurs.forEach(function (c) { role[c.bouton] = { hex: c.hex, texte: 'B' }; role[c.led] = { hex: c.hex, texte: 'L' }; });
+    role[C.buzzer] = { hex: '#8593AC', texte: '♪' };
+    var h = '<rect x="10" y="6" width="600" height="156" rx="12" fill="#1C7286" stroke="#11505F" stroke-width="2"/>' +
+      '<rect x="40" y="30" width="540" height="34" rx="4" fill="#1B2226"/>' +
+      '<text x="310" y="150" fill="#FFFFFF" font-size="14" font-weight="700" text-anchor="middle" letter-spacing="2">DIGITAL</text>';
+    rangee.forEach(function (b, i) {
+      var x = 62 + i * 41.5;
+      var r = role[b];
+      h += '<rect x="' + (x - 9) + '" y="38" width="18" height="18" rx="2" fill="#0E1418" stroke="#C9A227"/>' +
+        '<text x="' + x + '" y="25" fill="#FFFFFF" font-size="11" font-weight="700" text-anchor="middle">' + b.replace(/^D/, '') + '</text>';
+      if (r) h += '<circle cx="' + x + '" cy="114" r="14" fill="' + r.hex + '" stroke="#FFFFFF" stroke-width="2"/>' +
+        '<line x1="' + x + '" y1="56" x2="' + x + '" y2="100" stroke="' + r.hex + '" stroke-width="4"/>' +
+        '<text x="' + x + '" y="119" fill="#0B1220" font-size="13" font-weight="700" text-anchor="middle">' + r.texte + '</text>';
+    });
+    svg.innerHTML = h;
+
+    // Navigation : précédent / suivant, points, flèches du clavier ; l'étape est gardée dans l'adresse (#etape-3).
+    var points = document.querySelector('.points');
+    points.innerHTML = etapes.map(function (_, i) { return '<button type="button" aria-label="Aller à l’étape ' + (i + 1) + '"></button>'; }).join('');
+    var courant = 0;
+    function aller(i) {
+      if (i < 0 || i >= etapes.length) return;
+      courant = i;
+      etapes.forEach(function (e, k) { e.hidden = k !== i; });
+      document.querySelector('.compteur').textContent = 'Étape ' + (i + 1) + ' / ' + etapes.length;
+      document.documentElement.style.setProperty('--accent', ACCENTS[etapes[i].dataset.accent] || ACCENTS.bleu);
+      Array.prototype.forEach.call(points.children, function (p, k) { if (k === i) p.setAttribute('aria-current', 'step'); else p.removeAttribute('aria-current'); });
+      document.querySelector('.precedent').disabled = i === 0;
+      document.querySelector('.suivant').disabled = i === etapes.length - 1;
+      history.replaceState(null, '', '#etape-' + (i + 1));
+      window.scrollTo(0, 0);
+    }
+    document.querySelector('.precedent').addEventListener('click', function () { aller(courant - 1); });
+    document.querySelector('.suivant').addEventListener('click', function () { aller(courant + 1); });
+    points.addEventListener('click', function (e) { var i = Array.prototype.indexOf.call(points.children, e.target); if (i >= 0) aller(i); });
+    document.addEventListener('keydown', function (e) {
+      if (e.target.closest && e.target.closest('input, textarea, select')) return;
+      if (e.key === 'ArrowRight') aller(courant + 1);
+      if (e.key === 'ArrowLeft') aller(courant - 1);
+    });
+    var m = /etape-(\d+)/.exec(location.hash);
+    aller(m ? Number(m[1]) - 1 : 0);
+  })();
+</script>
+</body>
+</html>

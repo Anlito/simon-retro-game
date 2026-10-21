@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Projet Simon Rétro Game</title>
+<link rel="icon" href="img/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="css/atelier.css">
+<link rel="stylesheet" href="https://anlito.github.io/labo-blocs/module/labo-blocs.css">
+<link rel="stylesheet" href="css/carnet.css">
+<link rel="stylesheet" href="css/retro.css">
+</head>
+<body>
+<div class="ecran-accueil" hidden>
+  <div class="accueil-carte">
+    <div class="accueil-titre">
+      <img src="img/favicon.svg" alt="" width="48" height="48">
+      <div>
+        <p class="retro-surtitre">TECHNOLOGIE · 5e &amp; 4e</p>
+        <h1>Simon <span>Rétro Game</span></h1>
+        <p>Le bureau d’études de ton équipe : carnet de projet, modélisation du boîtier, affiche, câblage et programmation de ton jeu Simon de poche.</p>
+      </div>
+    </div>
+
+    <section class="accueil-panneau" data-panneau="choix">
+      <div class="accueil-reprendre" hidden>
+        <div>
+          <strong>Reprendre le travail de <span class="reprendre-equipe"></span></strong>
+          <span class="reprendre-date"></span>
+        </div>
+        <button type="button" class="btn-principal btn-reprendre">Reprendre<span data-icone="suivant" data-epaisseur="2.8"></span></button>
+        <button type="button" class="btn-lien btn-pas-nous">Ce n’est pas notre équipe</button>
+      </div>
+      <div class="accueil-choix">
+        <button type="button" class="grand-choix btn-nouvelle">
+          <span data-icone="equipe" data-epaisseur="2.4"></span>
+          <strong>Nouvelle équipe</strong>
+          <span>On commence le projet.</span>
+        </button>
+        <button type="button" class="grand-choix btn-ouvrir">
+          <span data-icone="disquette" data-epaisseur="2.4"></span>
+          <strong>Ouvrir notre équipe</strong>
+          <span>On ouvre notre dossier : le travail et les photos du professeur.</span>
+        </button>
+      </div>
+      <button type="button" class="btn-lien btn-ouvrir-fichier">Ouvrir seulement un fichier de sauvegarde…</button>
+      <p class="accueil-erreur" role="alert" hidden></p>
+    </section>
+
+    <section class="accueil-panneau" data-panneau="equipe" hidden>
+      <h2>Qui est dans l’équipe ?</h2>
+      <form class="formulaire-equipe" novalidate>
+        <div class="champs-prenoms">
+          <label>Prénom 1<input class="champ-prenom" autocomplete="off" maxlength="20" required></label>
+          <label>Prénom 2<input class="champ-prenom" autocomplete="off" maxlength="20"></label>
+          <label>Prénom 3<input class="champ-prenom" autocomplete="off" maxlength="20"></label>
+        </div>
+        <label class="label-classe">Classe<select class="champ-classe"></select></label>
+        <p class="accueil-erreur" role="alert" hidden></p>
+        <div class="accueil-actions">
+          <button type="button" class="btn-secondaire btn-retour-choix">Retour</button>
+          <button type="submit" class="btn-principal">Suivant<span data-icone="suivant" data-epaisseur="2.8"></span></button>
+        </div>
+      </form>
+    </section>
+
+    <section class="accueil-panneau" data-panneau="dossier" hidden>
+      <h2>Le dossier de ton équipe</h2>
+      <p class="avec-acces">Clique sur « Choisir le dossier », puis va jusqu’au dossier <strong class="nom-dossier-cible"></strong> :</p>
+      <p class="sans-acces-texte">Sur ce navigateur, « Enregistrer » télécharge le fichier <strong class="nom-fichier"></strong>. Range-le ensuite dans le dossier de ton équipe, ici :</p>
+      <div class="chemin"></div>
+      <ol class="avec-acces dossier-etapes">
+        <li>Ouvre <strong>Bureau</strong>, puis chaque dossier dans l’ordre, jusqu’à <strong class="nom-dossier-cible-bis"></strong>.</li>
+        <li>Sélectionne <strong class="nom-dossier-cible-bis"></strong> (un seul clic) et valide (« Sélectionner le dossier »).</li>
+        <li>Accepte quand le navigateur demande l’autorisation de modifier les fichiers.</li>
+      </ol>
+      <p class="dossier-equipe-auto"><span class="avec-acces-inline">L’atelier crée dedans le dossier de ton équipe :</span><span class="sans-acces-inline">Crée dedans le dossier de ton équipe :</span>
+        <span class="chemin-dossier equipe"><span data-icone="dossier" data-epaisseur="2.4"></span><span class="nom-dossier-equipe"></span></span></p>
+      <div class="dossier-resultat" aria-live="polite"></div>
+      <p class="accueil-erreur" role="alert" hidden></p>
+      <div class="accueil-actions">
+        <button type="button" class="btn-secondaire btn-retour-equipe">Retour</button>
+        <button type="button" class="btn-principal btn-choisir-dossier"><span data-icone="disquette" data-epaisseur="2.4"></span>Choisir le dossier</button>
+        <button type="button" class="btn-principal btn-commencer-sans-dossier" hidden>Commencer<span data-icone="suivant" data-epaisseur="2.8"></span></button>
+      </div>
+    </section>
+  </div>
+</div>
+
+<div class="ecran-carnet" hidden>
+  <header class="carnet-entete">
+    <img src="img/favicon.svg" alt="" width="40" height="40">
+    <div class="carnet-titre">
+      <h1>Projet Simon Rétro Game</h1>
+      <span class="carnet-equipe"></span>
+    </div>
+    <span class="etat-enregistrement" aria-live="polite"></span>
+    <a class="btn-aide" href="tuto-cablage.html" target="_blank" rel="noopener"><span data-icone="bouton" data-epaisseur="2.4"></span>Tutoriel de câblage</a>
+    <button type="button" class="btn-aide btn-enregistrer"><span data-icone="disquette" data-epaisseur="2.4"></span>Enregistrer</button>
+  </header>
+  <div class="carnet-avancement" aria-label="Avancement"></div>
+  <nav class="carnet-onglets" role="tablist" aria-label="Parties du carnet"></nav>
+  <main class="carnet-contenu"></main>
+</div>
+
+<!-- Exercices de programmation : écran de Labo Blocs (vendor/labo-blocs), posé par js/exercices.js -->
+<div class="ecran-programmation" hidden></div>
+
+<div class="message-bref" role="status" hidden></div>
+
+<!-- Labo Blocs : Blockly, moteur et écran d’exercice, chargés depuis le site de Labo Blocs (Internet nécessaire) -->
+<script type="application/x-atelier" data-src="https://anlito.github.io/labo-blocs/module/blockly/blockly_compressed.js"></script>
+<script type="application/x-atelier" data-src="https://anlito.github.io/labo-blocs/module/blockly/fr.js"></script>
+<script type="application/x-atelier" data-src="https://anlito.github.io/labo-blocs/module/labo-blocs-noyau.js"></script>
+<script type="application/x-atelier" data-src="https://anlito.github.io/labo-blocs/module/labo-blocs-interface.js"></script>
+<!-- Réglages du collège (classes, chemin des dossiers) : copie de secours, puis version en ligne de Labo Blocs -->
+<script type="application/x-atelier" data-src="donnees/college.js"></script>
+<script type="application/x-atelier">LaboBlocs.chargerCollegeEnLigne();</script>
+<!-- Moteur de l'atelier : carnet de projet et progression de l'équipe -->
+<script type="application/x-atelier" data-src="js/moteur/catalogue.js"></script>
+<script type="application/x-atelier" data-src="donnees/projet.js"></script>
+<script type="application/x-atelier" data-src="js/moteur/carnet.js"></script>
+<script type="application/x-atelier" data-src="js/moteur/progression.js"></script>
+<!-- Exercices (parcours de Labo Blocs, mis à jour depuis l'outil du professeur) et données du projet -->
+<script type="application/x-atelier" data-src="https://anlito.github.io/labo-blocs/parcours/simon/parcours.js"></script>
+<script type="application/x-atelier" data-src="js/parcours-source.js"></script>
+<script type="application/x-atelier" data-src="donnees/classes.js"></script>
+<script type="application/x-atelier" data-src="donnees/carnet.js"></script>
+<!-- Interface -->
+<script type="application/x-atelier" data-src="js/icones.js"></script>
+<script type="application/x-atelier" data-src="js/fichiers.js"></script>
+<script type="application/x-atelier" data-src="js/photos-eleves.js"></script>
+<script type="application/x-atelier" data-src="js/accueil.js"></script>
+<script type="application/x-atelier" data-src="js/session.js"></script>
+<script type="application/x-atelier" data-src="js/exercices.js"></script>
+<script type="application/x-atelier" data-src="js/carnet-ecran.js"></script>
+<script type="application/x-atelier">
+  Atelier.ajusterEchelle();
+  addEventListener('resize', Atelier.ajusterEchelle);
+  (async function () {
+    await Atelier.parcoursPret;
+    var q = new URLSearchParams(location.search);
+    // Programme d'une équipe ouvert depuis l'outil professeur (prof.html).
+    if (q.has('revue')) {
+      try {
+        var r = JSON.parse(localStorage.getItem(Atelier.projet.id + '-revue'));
+        if (r && r.donnees) {
+          document.title = 'Lecture · ' + r.donnees.equipe.eleves.join(', ');
+          return Atelier.demarrerLecture(Atelier.creerSession({ donnees: Atelier.relierDonnees(r.donnees), lecture: true }), { exercice: r.exercice, programme: r.programme });
+        }
+      } catch (e) { /* on ouvre l'accueil */ }
+    }
+    // Mode enseignant : pas d'accueil, une équipe fictive, rien n'est enregistré.
+    if (q.has('enseignant')) {
+      return Atelier.demarrerLecture(Atelier.creerSession({ donnees: Atelier.creerProgression({ eleves: ['Mode enseignant'], classe: '' }), lecture: true }));
+    }
+    // Élèves : créer ou ouvrir le projet de l'équipe, puis le carnet de projet.
+    Atelier.demarrerAccueil(function (r) {
+      var session = Atelier.creerSession(r);
+      Atelier.demarrerProjet(session);
+      var modifies = r.donnees.exercicesModifies || [];
+      if (modifies.length) session.message('Ton professeur a modifié ' + (modifies.length > 1 ? modifies.length + ' exercices' : 'l’exercice ' + modifies[0]) + '. Tes blocs sont gardés : relance la vérification.', 7000);
+    });
+  })();
+</script>
+<script src="js/connexion-labo.js"></script>
+</body>
+</html>
