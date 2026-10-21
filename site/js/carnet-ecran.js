@@ -10,7 +10,7 @@
   const echapper = (s) => String(s === null || s === undefined ? '' : s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]);
 
   // Couleurs des colonnes de classement (titres et explications du « ? » dans donnees/carnet.js).
-  const COULEURS_COLONNES = { capteur: '#1E88E5', carte: '#7B1FA2', actionneur: '#E65100' };
+  const COULEURS_COLONNES = { capteur: '#33A1FF', carte: '#FFD23F', actionneur: '#2BE38A' };
   const SYMBOLE = { fait: '✓', en_cours: '●', a_faire: '○' };
   const MOT_ETAT = { fait: 'fait', en_cours: 'en cours', a_faire: 'à faire' };
 
@@ -78,16 +78,17 @@
       const etats = A.etatsCarnet(K, C, niveau);
       const av = A.avancementCarnet(K, C, niveau);
       const nProg = exercicesCles().obligatoires;
-      $('.carnet-avancement', racine).innerHTML =
-        `<span><strong>Carnet</strong> ${av.fait}/${av.total}</span>` +
-        `<span class="barre"><span style="width:${av.total ? Math.round((av.fait / av.total) * 100) : 0}%"></span></span>` +
-        `<span><strong>Programmation</strong> ${A.avancement(D)}/${nProg}</span>` +
-        `<span class="barre"><span style="width:${nProg ? Math.round((A.avancement(D) / nProg) * 100) : 0}%"></span></span>`;
-      $('.carnet-onglets', racine).innerHTML = ONGLETS.map((o) => {
+      // Barre de jeu : une jauge en segments pour le carnet et une pour les niveaux (exercices).
+      const deux = (n) => String(n).padStart(2, '0');
+      const jauge = (titre, fait, total, couleur) =>
+        `<div class="jauge" style="--c:${couleur}" role="img" aria-label="${titre} : ${fait} sur ${total}"><span class="jauge-titre">${titre} <b>${deux(fait)}/${deux(total)}</b></span>` +
+        `<span class="segments">${Array.from({ length: total }, (_, i) => `<i${i < fait ? ' class="plein"' : ''}></i>`).join('')}</span></div>`;
+      $('.carnet-avancement', racine).innerHTML = jauge('CARNET', av.fait, av.total, 'var(--vert)') + jauge('NIVEAU', A.avancement(D), nProg, 'var(--bleu)');
+      $('.carnet-onglets', racine).innerHTML = ONGLETS.map((o, k) => {
         const e = etatOnglet(o, etats);
         return (
           `<button type="button" role="tab" class="onglet${e ? ' etat-' + e : ' sans-etat'}" data-onglet="${o.cle}" aria-selected="${ui.onglet === o.cle}">` +
-          `${A.icone(o.icone || 'info', { epaisseur: 2.4 })}<span>${echapper(o.titre)}</span>` +
+          `<span class="onglet-num" aria-hidden="true">${deux(k + 1)}</span><span>${echapper(o.titre)}</span>` +
           (e ? `<span class="onglet-etat" aria-label="${MOT_ETAT[e]}">${SYMBOLE[e]}</span>` : '') +
           '</button>'
         );

@@ -11,3 +11,12 @@ test('le site n’embarque ni module Labo Blocs ni parcours',()=>{
     assert.equal((s.match(/<script src=/g)||[]).length,1);
   }
 });
+
+test('charte arcade : polices copiées dans le site, aucune police en ligne', () => {
+  for (const nom of ['press-start-2p-latin-400-normal.woff2', 'pixelify-sans-latin-700-normal.woff2', 'atkinson-hyperlegible-latin-400-normal.woff2']) {
+    assert(fs.existsSync(path.join(site, 'polices', nom)), nom);
+  }
+  const css = fs.readFileSync(path.join(site, 'css/arcade.css'), 'utf8');
+  assert(!/@import|fonts\.googleapis|https?:\/\//.test(css));
+  for (const nom of ['index.html', 'prof.html']) assert(fs.readFileSync(path.join(site, nom), 'utf8').includes('href="css/arcade.css"'));
+});

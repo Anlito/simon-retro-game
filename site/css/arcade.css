@@ -1,0 +1,269 @@
+/* ===== Charte « borne d'arcade 8 bits » du Simon Rétro Game =====
+   Fond violet nuit, panneaux « console », contours pixelisés, les quatre couleurs du Simon en néon, lignes d'écran
+   cathodique très discrètes. Titres et étiquettes en police pixel (Pixelify Sans ; le logo SIMON en Press Start 2P),
+   tout le texte à lire ou à écrire en Atkinson Hyperlegible. Polices copiées dans polices/ (licence SIL OFL).
+   Chargée en dernier : elle règle les variables utilisées par atelier.css, carnet.css, prof.css et outils.css.
+   L'écran d'exercice de Labo Blocs (.labo-blocs) garde ses blocs pastel : seul son cadre prend l'accent du projet.
+   Écarts en jaune ambre, jamais en rouge (le rouge est seulement la couleur d'un bouton du Simon) ; chaque état a un
+   mot ou un symbole, jamais la couleur seule. */
+
+@font-face { font-family: 'Press Start 2P'; src: url('../polices/press-start-2p-latin-400-normal.woff2') format('woff2'); font-display: swap; }
+@font-face { font-family: 'Pixelify Sans'; src: url('../polices/pixelify-sans-latin-400-normal.woff2') format('woff2'); font-weight: 400; font-display: swap; }
+@font-face { font-family: 'Pixelify Sans'; src: url('../polices/pixelify-sans-latin-700-normal.woff2') format('woff2'); font-weight: 700; font-display: swap; }
+@font-face { font-family: 'Atkinson Hyperlegible'; src: url('../polices/atkinson-hyperlegible-latin-400-normal.woff2') format('woff2'); font-weight: 400; font-display: swap; }
+@font-face { font-family: 'Atkinson Hyperlegible'; src: url('../polices/atkinson-hyperlegible-latin-700-normal.woff2') format('woff2'); font-weight: 700; font-display: swap; }
+
+:root {
+  /* Charte */
+  --ecran: #140B2E;
+  --console: #1F1446;
+  --console-2: #2A1C5C;
+  --pixel: #4B3796;
+  --texte: #F5F2FF;
+  --discret: #BDB2E6;
+  --ombre: #07031A;
+  --bleu: #33A1FF;
+  --vert: #2BE38A;
+  --jaune: #FFD23F;
+  --rouge: #FF4D6D;
+  --ambre-fond: #3A2B12;
+  --vert-fond: #0F3A2A;
+  --rouge-fond: #3D1426;
+  --p: 4px; /* un « pixel » des contours */
+  --police-logo: 'Press Start 2P', 'Courier New', monospace;
+  --police-pixel: 'Pixelify Sans', 'Courier New', monospace;
+  /* Variables des feuilles reprises du Labyrinthe, réglées sur la charte */
+  --fond: var(--ecran);
+  --encre: var(--texte);
+  --texte-2: var(--discret);
+  --bord: var(--pixel);
+  --gris: #9A8FC4;
+  --gris-bord: #6A55B8;
+  --gris-fond: var(--console-2);
+  --bleu-fonce: #8CCBFF;
+  --bleu-pale: #23195A;
+  --orange: var(--jaune);
+  --orange-survol: #FFE173;
+  --consigne-fond: #2D2150;
+  --consigne-texte: var(--jaune);
+  --consigne-bord: var(--jaune);
+  --signal: var(--jaune);
+  --police: 'Atkinson Hyperlegible', 'Segoe UI', system-ui, sans-serif;
+  --titres: var(--police-pixel);
+  color-scheme: dark;
+}
+
+body { background: var(--ecran); color: var(--texte); font-family: var(--police); }
+/* Écran cathodique : lignes de balayage très discrètes, sans bloquer les clics (pas sur l'écran d'exercice). */
+body::after {
+  content: ''; position: fixed; inset: 0; pointer-events: none; z-index: 9000;
+  background: repeating-linear-gradient(0deg, rgba(0, 0, 0, 0.16) 0 1px, transparent 1px 3px);
+}
+body:has(.ecran-programmation:not([hidden]))::after, body:has(.ecran-exercice:not([hidden]))::after { display: none; }
+a { color: var(--bleu-fonce); }
+:focus-visible:not(.labo-blocs *) { outline: 3px solid var(--jaune); outline-offset: 3px; }
+h1:not(.labo-blocs *), h2:not(.labo-blocs *), h3:not(.labo-blocs *) { font-family: var(--police); }
+.pixel { font-family: var(--police-pixel); font-weight: 700; letter-spacing: 0.04em; }
+
+
+/* Cadre à coins pixelisés (deux ombres croisées) et ombre portée dure. */
+.cadre-pixel, .carte-carnet, .accueil-carte, .prof-carte, .pc-chiffre, .pe-carte {
+  border: 0 !important; border-radius: 0 !important; background: var(--console);
+  box-shadow: 0 calc(-1 * var(--p)) 0 0 var(--pixel), 0 var(--p) 0 0 var(--pixel), calc(-1 * var(--p)) 0 0 0 var(--pixel),
+    var(--p) 0 0 0 var(--pixel), 0 calc(3 * var(--p)) 0 0 var(--ombre) !important;
+}
+
+/* ---------- Boutons « cartouche » : ombre dure, ils s'enfoncent au clic ---------- */
+.btn-principal:not(.labo-blocs *), .btn-secondaire:not(.labo-blocs *), .btn-aide:not(.labo-blocs *), .btn-verifier-partie, .pb-btn {
+  border: 0 !important; border-radius: 0 !important; font: 700 1rem var(--police); position: relative; top: 0;
+  transition: none;
+}
+.btn-principal:not(.labo-blocs *) { background: var(--jaune); color: var(--ecran); box-shadow: 0 var(--p) 0 0 #B8901A, 0 calc(2 * var(--p)) 0 0 var(--ombre); }
+.btn-principal:not(.labo-blocs *):hover { background: var(--orange-survol); }
+.btn-principal:not(.labo-blocs *) .icone { stroke: var(--ecran) !important; }
+.btn-secondaire:not(.labo-blocs *), .btn-aide:not(.labo-blocs *) { background: var(--console-2); color: var(--texte); box-shadow: 0 var(--p) 0 0 var(--pixel), 0 calc(2 * var(--p)) 0 0 var(--ombre); }
+.btn-secondaire:not(.labo-blocs *):hover, .btn-aide:not(.labo-blocs *):hover { background: #352573; }
+.btn-aide:not(.labo-blocs *) .icone, .btn-secondaire:not(.labo-blocs *) .icone { stroke: var(--jaune) !important; }
+.btn-verifier-partie { background: var(--vert); color: var(--ecran); box-shadow: 0 var(--p) 0 0 #189659, 0 calc(2 * var(--p)) 0 0 var(--ombre); }
+.btn-verifier-partie:hover { background: #5CF0A8; }
+.btn-verifier-partie .icone { stroke: var(--ecran) !important; }
+.btn-principal:not(.labo-blocs *):active, .btn-secondaire:not(.labo-blocs *):active, .btn-aide:not(.labo-blocs *):active, .btn-verifier-partie:active { top: var(--p); box-shadow: 0 var(--p) 0 0 var(--ombre); }
+.btn-lien:not(.labo-blocs *) { color: var(--bleu-fonce); }
+a.btn-aide { text-decoration: none; }
+.message-bref:not(.labo-blocs *) { background: var(--jaune); color: var(--ecran); border-radius: 0; font-weight: 700; box-shadow: 0 var(--p) 0 0 var(--ombre); }
+
+/* ---------- Écran titre (accueil) ---------- */
+.ecran-accueil { background: var(--ecran); padding: 2rem 1.5rem; align-items: flex-start; }
+.accueil-carte { width: min(56rem, 100%); padding: 0; margin: 1rem auto; }
+.accueil-titre { flex-direction: column; align-items: center; text-align: center; gap: 0; margin: 0; padding: 2rem 1.5rem 1.25rem; }
+.accueil-titre > img { width: 5.5rem; height: 5.5rem; image-rendering: pixelated; }
+.accueil-titre .retro-surtitre { margin: 1rem 0 0; font: 700 0.875rem var(--police-pixel); letter-spacing: 0.25em; color: var(--discret); }
+.accueil-titre .logo-simon { margin: 0.75rem 0 0.25rem; font: 400 clamp(2.25rem, 6.5vw, 4.25rem)/1.1 var(--police-logo); text-shadow: 0.25rem 0.25rem 0 var(--ombre); }
+.logo-simon span:nth-child(1), .logo-simon span:nth-child(5) { color: var(--bleu); }
+.logo-simon span:nth-child(2) { color: var(--vert); }
+.logo-simon span:nth-child(3) { color: var(--jaune); }
+.logo-simon span:nth-child(4) { color: var(--rouge); }
+.accueil-titre .logo-sous-titre { margin: 0; font: 700 1.125rem var(--police-pixel); letter-spacing: 0.4em; color: var(--texte); }
+.accueil-titre .accueil-intro { margin: 1rem auto 0; max-width: 36rem; color: var(--discret); line-height: 1.55; }
+.accueil-titre .appuie-start { margin: 1.25rem 0 0; font: 700 1.125rem var(--police-pixel); color: var(--jaune); letter-spacing: 0.08em; animation: clignote 1.1s steps(2, start) infinite; }
+@keyframes clignote { to { visibility: hidden; } }
+.accueil-panneau { padding: 1.25rem 2rem 2rem; }
+.accueil-panneau h2 { font: 700 1.375rem var(--police-pixel); color: var(--jaune); letter-spacing: 0.04em; }
+.accueil-choix { gap: 1.5rem; }
+.grand-choix { border: 0; border-radius: 0; background: var(--console-2); min-height: 8.5rem; color: var(--texte);
+  box-shadow: inset 0 0 0 2px var(--c, var(--vert)), 0 var(--p) 0 0 var(--ombre); }
+.grand-choix:nth-child(1) { --c: var(--vert); }
+.grand-choix:nth-child(2) { --c: var(--bleu); }
+.grand-choix:hover { background: #352573; }
+.grand-choix strong { font: 700 1.3125rem var(--police-pixel); color: var(--c); letter-spacing: 0.03em; }
+.grand-choix strong::before { content: '▶ '; }
+.grand-choix .icone { stroke: var(--c) !important; }
+.grand-choix span { color: var(--discret); }
+.accueil-reprendre { border-radius: 0; background: var(--console-2); border-left: var(--p) solid var(--jaune); }
+.accueil-erreur, .avertissement { border-radius: 0; background: var(--ambre-fond); border-left: var(--p) solid var(--jaune); color: var(--texte); }
+.confirmation { border-radius: 0; background: var(--vert-fond); border-left: var(--p) solid var(--vert); }
+.formulaire-equipe input, .formulaire-equipe select { border: 0; border-radius: 0; background: var(--ecran); color: var(--texte); box-shadow: inset 0 0 0 2px var(--pixel); }
+.formulaire-equipe input:focus, .formulaire-equipe select:focus { box-shadow: inset 0 0 0 2px var(--jaune); }
+.chemin-dossier { border-radius: 0; background: var(--console-2); border-color: var(--pixel); }
+.chemin-dossier.cible { background: var(--ambre-fond); border-color: var(--jaune); box-shadow: none; }
+.chemin-dossier.equipe { background: transparent; }
+.credits { margin: 0; padding: 0 1.5rem 1.5rem; text-align: center; font: 700 0.8125rem var(--police-pixel); letter-spacing: 0.15em; color: var(--discret); }
+
+/* ---------- Carnet : barre de jeu (HUD) ---------- */
+.ecran-carnet { background: var(--ecran); }
+.carnet-entete { background: var(--console); border: 0; box-shadow: 0 var(--p) 0 0 var(--pixel), 0 calc(2 * var(--p)) 0 0 var(--ombre); padding: 0.625rem 1.25rem; }
+.carnet-entete > img { width: 2.75rem; height: 2.75rem; }
+.carnet-titre h1 { font: 700 1.25rem var(--police-pixel); color: var(--jaune); letter-spacing: 0.04em; }
+.carnet-equipe { font: 700 0.9375rem var(--police-pixel); color: var(--vert); letter-spacing: 0.05em; }
+.carnet-equipe::before { content: '1UP · '; }
+.etat-enregistrement { color: var(--discret); }
+.etat-enregistrement.a-faire { color: var(--jaune); }
+.carnet-avancement { display: flex; flex-wrap: wrap; gap: 0.75rem 2rem; max-width: 70rem; }
+.jauge { display: flex; flex-direction: column; gap: 0.3rem; }
+.jauge-titre { font: 700 0.875rem var(--police-pixel); color: var(--discret); letter-spacing: 0.08em; }
+.jauge-titre b { color: var(--texte); }
+.segments { display: flex; flex-wrap: wrap; gap: 2px; }
+.segments i { width: 0.7rem; height: 0.85rem; background: #3A2C70; }
+.segments i.plein { background: var(--c, var(--vert)); box-shadow: inset 0 -3px 0 rgba(0, 0, 0, 0.25); }
+
+/* Onglets « niveaux » : un numéro, une couleur du Simon ; l'onglet ouvert s'allume. */
+.carnet-onglets { gap: 0.6rem; max-width: 70rem; }
+.onglet { --c: var(--bleu); border: 0; border-radius: 0; background: var(--console); color: var(--texte); min-height: 2.9rem;
+  box-shadow: inset 0 calc(-1 * var(--p)) 0 0 var(--c); font: 700 0.9375rem var(--police); }
+.onglet:nth-child(4n + 2) { --c: var(--vert); }
+.onglet:nth-child(4n + 3) { --c: var(--jaune); }
+.onglet:nth-child(4n) { --c: var(--rouge); }
+.onglet:hover { background: var(--console-2); }
+.onglet .icone { stroke: var(--c) !important; }
+.onglet-num { font: 700 0.875rem var(--police-pixel); color: var(--c); }
+.onglet[aria-selected="true"] { background: var(--c); color: var(--ecran); box-shadow: inset 0 calc(-1 * var(--p)) 0 0 rgba(0, 0, 0, 0.3); }
+.onglet[aria-selected="true"] .icone { stroke: var(--ecran) !important; }
+.onglet[aria-selected="true"] .onglet-num, .onglet[aria-selected="true"] .onglet-etat { color: var(--ecran) !important; }
+.onglet.etat-fait .onglet-etat { color: var(--vert); }
+.onglet.etat-en_cours .onglet-etat { color: var(--bleu-fonce); }
+.carnet-contenu { max-width: 70rem; }
+
+/* Cartes du carnet : cadre pixel, surtitre du niveau en couleur. */
+.carnet-contenu { --accent: var(--vert); }
+.carte-carnet { padding: 1.25rem 1.5rem; margin: var(--p); }
+.carnet-contenu > .carte-carnet + .carte-carnet { margin-top: 1.5rem; }
+.carte-carnet h2 { color: var(--texte); font: 700 1.25rem var(--police); }
+.carte-carnet h2::before { content: '▶'; color: var(--accent); font: 700 0.875rem var(--police-pixel); }
+.etat-partie { border-radius: 0; font: 700 0.75rem var(--police-pixel); letter-spacing: 0.08em; text-transform: uppercase; background: #3A2C70; color: var(--discret); }
+.etat-partie.etat-fait { background: var(--vert); color: var(--ecran); }
+.etat-partie.etat-en_cours { background: var(--bleu); color: var(--ecran); }
+.mode-emploi { border-radius: 0; background: var(--consigne-fond); border-left: var(--p) solid var(--jaune); color: var(--texte); }
+.encadre-attention { box-shadow: 0 calc(-1 * var(--p)) 0 0 var(--jaune), 0 var(--p) 0 0 var(--jaune), calc(-1 * var(--p)) 0 0 0 var(--jaune), var(--p) 0 0 0 var(--jaune), 0 calc(3 * var(--p)) 0 0 var(--ombre) !important; }
+.encadre-attention h2 { color: var(--jaune); }
+.encadre-attention h2::before { content: '!'; color: var(--jaune); }
+.encadre-regle h2::before { content: '★'; color: var(--bleu); }
+.info-lignes li::marker { color: var(--accent); }
+.carte-carnet textarea, .table-libre input[type="text"] { border: 0; border-radius: 0; background: var(--ecran); color: var(--texte); box-shadow: inset 0 0 0 2px var(--pixel); }
+.carte-carnet textarea:focus, .table-libre input[type="text"]:focus { outline: none; box-shadow: inset 0 0 0 2px var(--jaune); }
+.table-libre th, .table-echelle thead th { background: var(--console-2); color: var(--discret); font: 700 0.875rem var(--police-pixel); letter-spacing: 0.05em; }
+.table-libre tbody th { background: var(--console-2); color: var(--texte); }
+.table-libre td, .table-echelle td, .table-echelle tbody th { border-bottom: 2px solid var(--ecran); }
+.liste-cases label:hover, .choix-options label:hover { background: var(--console-2); }
+.liste-cases input, .choix-options input, .table-echelle input { accent-color: var(--vert); }
+.liste-cases input:checked + span { color: var(--vert); }
+.trou { border-radius: 0; background: var(--ecran); color: var(--texte); border-color: var(--gris-bord); }
+.trou.rempli { background: var(--console-2); border-color: var(--bleu); }
+.trou.a-revoir { background: var(--ambre-fond); border-color: var(--jaune); }
+.trou.juste { background: var(--vert-fond); border-color: var(--vert); }
+.marque-trou { border-radius: 0; background: var(--jaune); color: var(--ecran); }
+.retour-verif { border-radius: 0; background: var(--ambre-fond); border-left: var(--p) solid var(--jaune); color: var(--texte); }
+.retour-verif.juste { background: var(--vert-fond); border-left-color: var(--vert); color: var(--vert); }
+.essais { color: var(--discret); }
+
+/* Classement : cartes « objets » et colonnes aux couleurs de la chaîne d'information. */
+.reserve { border-radius: 0; background: var(--ecran); border-color: var(--gris-bord); }
+.carte-objet { border-radius: 0; background: var(--console-2); color: var(--texte); border-color: var(--pixel); }
+.carte-objet img { background: #F5F2FF; padding: 0.25rem; }
+.carte-objet.choisie { background: var(--ambre-fond); border-color: var(--jaune); box-shadow: 0 0 0 3px var(--jaune); }
+.carte-objet.a-revoir { border-color: var(--jaune); box-shadow: 0 0 0 2px var(--ambre-fond); }
+.carte-objet .marque, .case-algo .marque { border-radius: 0; background: var(--jaune); color: var(--ecran); }
+.colonne { border-radius: 0; background: var(--ecran); }
+.chaine-maillon { border-radius: 0; color: var(--ecran); }
+.explication-colonne { background: var(--console-2); color: var(--texte); }
+
+/* Programmation : liste des niveaux (exercices) */
+.ligne-exercice { border-radius: 0; background: var(--console); color: var(--texte); border-color: var(--pixel); }
+.ligne-exercice:hover:not(:disabled) { background: var(--console-2); border-color: var(--bleu); }
+.ligne-exercice.statut-reussi { border-color: var(--vert); }
+.ligne-exercice.statut-reussi .liste-statut { color: var(--vert); }
+.ligne-exercice:disabled { background: var(--ecran); color: var(--gris); }
+.liste-numero { border-radius: 0; background: var(--bleu); color: var(--ecran); font: 700 0.875rem var(--police-pixel); }
+.liste-titre .defi { border-radius: 0; background: var(--jaune); color: var(--ecran); }
+.tester-maquette { border-radius: 0; background: var(--console-2); border: 0; box-shadow: inset 0 0 0 2px var(--bleu); }
+.tester-maquette h3 { font: 700 1.125rem var(--police-pixel); color: var(--bleu-fonce); }
+
+/* Images collées et fichiers déposés */
+.image-carnet { border-radius: 0; background: var(--console-2); border-color: var(--pixel); }
+.zone-coller { border-radius: 0; background: var(--ecran); border-color: var(--gris-bord); }
+.zone-coller:focus, .zone-coller:focus-visible { background: var(--console-2); border-color: var(--jaune); }
+.retour-image { color: var(--jaune); }
+.fichier-depose { background: var(--vert-fond); border-left-color: var(--vert); }
+
+/* Fiche « À retenir » */
+.revision-intro { background: var(--console); border-top: var(--p) solid var(--jaune); }
+.revision-intro h2 { color: var(--jaune); font-family: var(--police-pixel); }
+.revision-intro .revision-surtitre { color: var(--bleu-fonce); font-family: var(--police-pixel); }
+.revision-sommaire a { background: var(--console); border-color: var(--pixel); color: var(--texte); border-radius: 0; }
+.revision-sommaire a:hover { background: var(--console-2); border-color: var(--jaune); }
+.revision-numero, .revision-section h3 { color: var(--bleu-fonce); }
+.revision-section h3 { font-family: var(--police); }
+
+/* ---------- Outil professeur ---------- */
+.pb-bande { background: var(--console); border: 0; box-shadow: 0 var(--p) 0 0 var(--pixel), 0 calc(2 * var(--p)) 0 0 var(--ombre); }
+.pb-titre { font: 700 1.25rem var(--police-pixel); color: var(--jaune); letter-spacing: 0.04em; }
+.pb-titre span { color: var(--discret); }
+.pb-btn { background: var(--console-2); color: var(--texte); box-shadow: 0 var(--p) 0 0 var(--pixel); }
+.pb-btn:hover { background: #352573; }
+.pb-btn .icone { stroke: var(--jaune) !important; }
+.pb-atelier { color: var(--jaune); }
+.vue-accueil h2 { font: 700 1.75rem var(--police-pixel); color: var(--jaune); background: none; border: 0; padding: 0; }
+.prof-carte { color: var(--texte); }
+.prof-carte strong { font-family: var(--police-pixel); color: var(--vert); }
+.prof-carte-ic { background: var(--console-2); border-radius: 0; }
+.prof-tableau thead th { background: var(--console-2); color: var(--discret); }
+.pc-chiffre { color: var(--texte); }
+.pe-onglets button[aria-selected="true"] { color: var(--jaune); border-bottom-color: var(--jaune); }
+.note-maitrise { background: var(--console-2); }
+.note-maitrise select { background: var(--ecran); color: var(--texte); border-color: var(--jaune); border-radius: 0; }
+
+/* ---------- Écran d'exercice de Labo Blocs : ses couleurs pastel, l'accent du projet dans son bandeau ---------- */
+.labo-blocs {
+  --accent: #140B2E; /* bandeau de l'écran d'exercice aux couleurs du projet */
+}
+
+@media (max-width: 720px) {
+  .accueil-panneau { padding: 1rem; }
+  .accueil-choix { grid-template-columns: 1fr; }
+  .carnet-avancement { flex-direction: column; }
+}
+@media (prefers-reduced-motion: reduce) { .appuie-start { animation: none; } }
+@media print {
+  :root { --ecran: #FFFFFF; --console: #FFFFFF; --console-2: #FFFFFF; --texte: #000000; --discret: #333333; color-scheme: light; }
+  body::after { display: none; }
+  .carte-carnet { box-shadow: none !important; border: 1px solid #777 !important; }
+}

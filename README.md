@@ -11,6 +11,15 @@ nécessaire. Les JSON des équipes, leurs captures et leurs PDF restent dans les
 - Élèves : `site/index.html` · Professeur : `site/prof.html` · Tutoriel de câblage : `site/tuto-cablage.html`
 - Mode d'emploi du professeur : [LISEZ-MOI.md](LISEZ-MOI.md)
 
+## Charte graphique
+
+Une borne d’arcade 8 bits (`site/css/arcade.css`) : fond violet nuit, panneaux « console », contours pixelisés,
+les quatre couleurs du Simon en néon (bleu `#33A1FF`, vert `#2BE38A`, jaune `#FFD23F`, rouge `#FF4D6D`), lignes
+d’écran cathodique discrètes. Accueil en écran titre, barre de jeu (joueurs, jauges CARNET et NIVEAU), onglets
+numérotés comme des niveaux. Polices copiées dans `site/polices/` (licence SIL OFL) : Press Start 2P pour le logo,
+Pixelify Sans pour les titres et étiquettes, Atkinson Hyperlegible pour tout le texte à lire ou à écrire. Écarts en
+jaune ambre, jamais en rouge. L’écran d’exercice de Labo Blocs garde ses couleurs.
+
 ## Organisation
 
 | Dossier | Contenu |

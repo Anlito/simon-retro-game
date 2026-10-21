@@ -6,61 +6,75 @@
 <title>Tutoriel de câblage — Simon Rétro Game</title>
 <link rel="icon" href="img/favicon.svg" type="image/svg+xml">
 <style>
-  /* Charte du briefing Simon : fond nuit, panneaux bleu ardoise, les quatre couleurs du Simon. Polices du système. */
+  /* Charte « borne d'arcade 8 bits » du Simon (css/arcade.css) : fond violet nuit, cadres pixelisés, les quatre
+     couleurs du Simon en néon. Polices copiées dans polices/ (licence SIL OFL) : aucune ressource en ligne. */
+  @font-face { font-family: 'Pixelify Sans'; src: url('polices/pixelify-sans-latin-700-normal.woff2') format('woff2'); font-weight: 700; font-display: swap; }
+  @font-face { font-family: 'Atkinson Hyperlegible'; src: url('polices/atkinson-hyperlegible-latin-400-normal.woff2') format('woff2'); font-weight: 400; font-display: swap; }
+  @font-face { font-family: 'Atkinson Hyperlegible'; src: url('polices/atkinson-hyperlegible-latin-700-normal.woff2') format('woff2'); font-weight: 700; font-display: swap; }
   :root {
-    --nuit: #0B1220; --panneau: #121C30; --trait: #24314C; --texte: #EEF2FA; --discret: #A9B6CC;
-    --bleu: #3B82F6; --vert: #23C17A; --jaune: #FFCF3F; --rouge: #FF5566; --accent: var(--bleu);
-    --police: 'Segoe UI', system-ui, -apple-system, sans-serif; --titres: 'Trebuchet MS', 'Segoe UI', sans-serif;
+    --ecran: #140B2E; --console: #1F1446; --console-2: #2A1C5C; --pixel: #4B3796; --ombre: #07031A;
+    --texte: #F5F2FF; --discret: #BDB2E6; --bleu: #33A1FF; --vert: #2BE38A; --jaune: #FFD23F; --rouge: #FF4D6D;
+    --accent: var(--bleu); --p: 4px;
+    --police: 'Atkinson Hyperlegible', 'Segoe UI', system-ui, sans-serif; --pixel-font: 'Pixelify Sans', 'Courier New', monospace;
   }
   * { box-sizing: border-box; }
   html, body { margin: 0; min-height: 100%; }
-  body { background: var(--nuit); color: var(--texte); font: 400 1rem/1.5 var(--police); }
-  a { color: #8EC1FF; }
+  body { background: var(--ecran); color: var(--texte); font: 400 1rem/1.5 var(--police); }
+  body::after { content: ''; position: fixed; inset: 0; pointer-events: none; z-index: 50; background: repeating-linear-gradient(0deg, rgba(0,0,0,0.16) 0 1px, transparent 1px 3px); }
+  a { color: #8CCBFF; }
   :focus-visible { outline: 3px solid var(--jaune); outline-offset: 3px; }
-  .haut { display: flex; align-items: center; gap: 1rem; padding: 0.75rem 1.5rem; border-bottom: 1px solid var(--trait); }
-  .haut strong { font-family: var(--titres); font-size: 1.125rem; }
-  .haut .compteur { margin-left: auto; color: var(--discret); font-variant-numeric: tabular-nums; }
-  .ruban { height: 0.35rem; background: linear-gradient(90deg, var(--bleu) 0 25%, var(--vert) 25% 50%, var(--jaune) 50% 75%, var(--rouge) 75% 100%); }
-  main { max-width: 62rem; margin: 0 auto; padding: 1.5rem; }
+  .cadre, .carte, table, figure.schema { background: var(--console); box-shadow: 0 calc(-1 * var(--p)) 0 0 var(--pixel), 0 var(--p) 0 0 var(--pixel), calc(-1 * var(--p)) 0 0 0 var(--pixel), var(--p) 0 0 0 var(--pixel), 0 calc(3 * var(--p)) 0 0 var(--ombre); }
+  .haut { display: flex; align-items: center; gap: 1rem; padding: 0.75rem 1.5rem; background: var(--console); box-shadow: 0 var(--p) 0 0 var(--pixel), 0 calc(2 * var(--p)) 0 0 var(--ombre); }
+  .haut img { image-rendering: pixelated; }
+  .haut strong { font: 700 1.25rem var(--pixel-font); color: var(--jaune); letter-spacing: 0.04em; }
+  .haut .compteur { margin-left: auto; font: 700 1rem var(--pixel-font); color: var(--vert); letter-spacing: 0.06em; }
+  .ruban { height: var(--p); background: linear-gradient(90deg, var(--bleu) 0 25%, var(--vert) 25% 50%, var(--jaune) 50% 75%, var(--rouge) 75% 100%); }
+  main { max-width: 62rem; margin: 0 auto; padding: 1.75rem 1.5rem; }
   .etape[hidden] { display: none; }
-  .surtitre { color: var(--accent); font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; font-size: 0.8125rem; margin: 0 0 0.5rem; }
-  h1 { font-family: var(--titres); font-size: clamp(1.75rem, 3.5vw, 2.5rem); margin: 0 0 0.75rem; line-height: 1.15; }
-  h2 { font-family: var(--titres); font-size: 1.125rem; margin: 1.25rem 0 0.5rem; }
+  .surtitre { color: var(--accent); font: 700 1rem var(--pixel-font); letter-spacing: 0.12em; text-transform: uppercase; margin: 0 0 0.5rem; }
+  .surtitre::before { content: '▶ '; }
+  h1 { font: 700 clamp(1.75rem, 3.5vw, 2.5rem)/1.15 var(--pixel-font); margin: 0 0 0.75rem; color: var(--texte); }
+  h2 { font: 700 1.375rem var(--pixel-font); color: var(--jaune); margin: 1.5rem 0 0.5rem; }
   .intro { color: var(--discret); max-width: 48rem; font-size: 1.0625rem; }
-  .cartes { display: flex; flex-wrap: wrap; gap: 1rem; margin: 1rem 0; }
-  .carte { flex: 1 1 16rem; background: var(--panneau); border: 1px solid var(--trait); border-radius: 0.6rem; padding: 1rem 1.2rem; }
-  .carte strong { display: block; margin-bottom: 0.25rem; }
-  table { width: 100%; border-collapse: collapse; background: var(--panneau); border-radius: 0.6rem; overflow: hidden; margin: 1rem 0; }
-  th, td { padding: 0.6rem 0.8rem; text-align: left; border-bottom: 1px solid var(--trait); }
-  th { color: var(--discret); font-size: 0.8125rem; text-transform: uppercase; letter-spacing: 0.05em; }
-  .pastille { display: inline-block; width: 0.9rem; height: 0.9rem; border-radius: 50%; vertical-align: -0.1rem; margin-right: 0.45rem; border: 2px solid #FFFFFF; }
-  .broche { font-family: Consolas, 'Courier New', monospace; font-weight: 700; background: #0B1220; border: 1px solid var(--trait); border-radius: 0.3rem; padding: 0.05rem 0.4rem; }
+  .cartes { display: flex; flex-wrap: wrap; gap: 1.5rem; margin: 1.25rem var(--p); }
+  .carte { flex: 1 1 16rem; padding: 1rem 1.2rem; margin: var(--p); }
+  .carte strong { display: block; margin-bottom: 0.25rem; color: var(--vert); }
+  table { width: calc(100% - 2 * var(--p)); border-collapse: collapse; margin: 1.25rem var(--p); }
+  th, td { padding: 0.6rem 0.8rem; text-align: left; border-bottom: 2px solid var(--ecran); }
+  th { color: var(--discret); font: 700 0.9375rem var(--pixel-font); letter-spacing: 0.05em; text-transform: uppercase; }
+  tbody th { color: var(--texte); font: 700 1rem var(--police); letter-spacing: 0; text-transform: none; }
+  .pastille { display: inline-block; width: 0.9rem; height: 0.9rem; vertical-align: -0.1rem; margin-right: 0.45rem; box-shadow: 0 0 0 2px var(--texte); }
+  .broche { font: 700 0.9375rem Consolas, 'Courier New', monospace; background: var(--ecran); box-shadow: inset 0 0 0 2px var(--pixel); padding: 0.1rem 0.45rem; }
   ol.gestes { padding-left: 1.4rem; }
   ol.gestes li { margin: 0.4rem 0; }
-  .attention { border-left: 0.35rem solid var(--jaune); background: #2A2512; padding: 0.8rem 1rem; border-radius: 0.3rem; margin: 1rem 0; }
+  ol.gestes li::marker { color: var(--accent); font-weight: 700; }
+  .attention { border-left: var(--p) solid var(--jaune); background: #3A2B12; padding: 0.8rem 1rem; margin: 1.25rem 0; }
+  .attention strong { color: var(--jaune); }
   .liste-verif { list-style: none; padding: 0; }
   .liste-verif li { margin: 0.4rem 0; }
   .liste-verif label { display: flex; gap: 0.6rem; align-items: flex-start; cursor: pointer; }
   .liste-verif input { width: 1.2rem; height: 1.2rem; margin-top: 0.15rem; accent-color: var(--vert); }
-  figure.schema { margin: 1rem 0; background: var(--panneau); border: 1px solid var(--trait); border-radius: 0.6rem; padding: 1rem; }
+  .liste-verif input:checked + span { color: var(--vert); }
+  figure.schema { margin: 1.25rem var(--p); padding: 1rem; }
   figure.schema svg { width: 100%; height: auto; display: block; }
   figure.schema figcaption { color: var(--discret); font-size: 0.875rem; margin-top: 0.5rem; }
-  .bas { display: flex; align-items: center; justify-content: space-between; gap: 1rem; max-width: 62rem; margin: 0 auto; padding: 0 1.5rem 2rem; }
-  .bas button { font: 700 1rem var(--police); min-height: 2.75rem; padding: 0 1.2rem; border-radius: 0.4rem; cursor: pointer; border: 2px solid var(--bleu); background: transparent; color: var(--texte); }
-  .bas button.suivant { background: var(--bleu); }
+  .bas { display: flex; align-items: center; justify-content: space-between; gap: 1rem; max-width: 62rem; margin: 0 auto; padding: 0.5rem 1.5rem 2.5rem; }
+  .bas button { font: 700 1rem var(--police); min-height: 2.75rem; padding: 0 1.2rem; border: 0; cursor: pointer; position: relative; top: 0; background: var(--console-2); color: var(--texte); box-shadow: 0 var(--p) 0 0 var(--pixel), 0 calc(2 * var(--p)) 0 0 var(--ombre); }
+  .bas button.suivant { background: var(--jaune); color: var(--ecran); box-shadow: 0 var(--p) 0 0 #B8901A, 0 calc(2 * var(--p)) 0 0 var(--ombre); }
+  .bas button:active:not(:disabled) { top: var(--p); box-shadow: 0 var(--p) 0 0 var(--ombre); }
   .bas button:disabled { opacity: 0.4; cursor: default; }
   .points { display: flex; gap: 0.5rem; }
-  .points button { width: 0.9rem; height: 0.9rem; min-height: 0; padding: 0; border-radius: 50%; border: 2px solid var(--discret); background: transparent; }
-  .points button[aria-current="step"] { background: var(--jaune); border-color: var(--jaune); }
+  .bas .points button { width: 0.9rem; height: 0.9rem; min-height: 0; padding: 0; background: #3A2C70; box-shadow: none; }
+  .bas .points button[aria-current="step"] { background: var(--accent); }
   @media (max-width: 640px) { main { padding: 1rem; } .haut { padding: 0.75rem 1rem; } }
-  @media print { body { background: #FFFFFF; color: #000000; } .etape[hidden] { display: block; } .bas, .haut .compteur { display: none; } table, .carte, figure.schema { background: #FFFFFF; } }
+  @media print { body { background: #FFFFFF; color: #000000; } body::after { display: none; } .etape[hidden] { display: block; } .bas, .haut .compteur { display: none; } table, .carte, figure.schema, .haut { background: #FFFFFF; box-shadow: none; border: 1px solid #777; } h1, h2, th, .haut strong { color: #000000; } }
 </style>
 </head>
 <body>
 <div class="ruban" aria-hidden="true"></div>
 <header class="haut">
   <img src="img/favicon.svg" alt="" width="32" height="32">
-  <strong>Tutoriel de câblage · Simon Rétro Game</strong>
+  <strong>Tutoriel de câblage</strong>
   <span class="compteur" aria-live="polite"></span>
 </header>
 
@@ -154,7 +168,7 @@
     'use strict';
     var C = window.CABLAGE;
     var etapes = Array.prototype.slice.call(document.querySelectorAll('.etape'));
-    var ACCENTS = { bleu: '#3B82F6', vert: '#23C17A', jaune: '#FFCF3F', rouge: '#FF5566' };
+    var ACCENTS = { bleu: '#33A1FF', vert: '#2BE38A', jaune: '#FFD23F', rouge: '#FF4D6D' };
     var pastille = function (c) { return '<span class="pastille" style="background:' + c.hex + '" aria-hidden="true"></span>'; };
     var broche = function (b) { return '<span class="broche">' + b + '</span>'; };
     var Maj = function (s) { return s.charAt(0).toUpperCase() + s.slice(1); };
@@ -198,7 +212,7 @@
       if (i < 0 || i >= etapes.length) return;
       courant = i;
       etapes.forEach(function (e, k) { e.hidden = k !== i; });
-      document.querySelector('.compteur').textContent = 'Étape ' + (i + 1) + ' / ' + etapes.length;
+      document.querySelector('.compteur').textContent = 'ÉTAPE ' + (i + 1) + ' / ' + etapes.length;
       document.documentElement.style.setProperty('--accent', ACCENTS[etapes[i].dataset.accent] || ACCENTS.bleu);
       Array.prototype.forEach.call(points.children, function (p, k) { if (k === i) p.setAttribute('aria-current', 'step'); else p.removeAttribute('aria-current'); });
       document.querySelector('.precedent').disabled = i === 0;
