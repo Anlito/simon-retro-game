@@ -8,6 +8,8 @@ navigateur, et le travail de chaque équipe est enregistré dans **un fichier** 
 
 - **Élèves** : `index.html` (lien « Tutoriel de câblage » en haut du carnet : `tuto-cablage.html`)
 - **Professeur** : `prof.html` (aucun lien depuis l'écran des élèves)
+- **Présentation du projet à la classe** : `presentation.html` (bouton « Présentation » de `prof.html`). Flèches ou
+  espace pour avancer, **F** pour le plein écran. Fond uni et textes très grands pour un vidéoprojecteur peu lumineux.
 - **Mode enseignant** (exercices tous ouverts, bouton « Solution », rien n'est enregistré) : `index.html?enseignant=1`
 
 Le moteur, Blockly, le simulateur et le parcours « simon » sont chargés depuis **Labo Blocs en ligne** (comme le

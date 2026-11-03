@@ -8,7 +8,7 @@ Le moteur, Blockly, le simulateur (avec la console Simon) et le parcours « simo
 **Labo Blocs en ligne**, sans copie dans ce dépôt, comme le Labyrinthe robotisé. Une connexion Internet est
 nécessaire. Les JSON des équipes, leurs captures et leurs PDF restent dans les dossiers des équipes.
 
-- Élèves : `site/index.html` · Professeur : `site/prof.html` · Tutoriel de câblage : `site/tuto-cablage.html`
+- Élèves : `site/index.html` · Professeur : `site/prof.html` · Tutoriel de câblage : `site/tuto-cablage.html` · Présentation à la classe : `site/presentation.html`
 - Mode d'emploi du professeur : [LISEZ-MOI.md](LISEZ-MOI.md)
 
 ## Charte graphique
