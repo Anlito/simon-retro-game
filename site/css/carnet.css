@@ -236,6 +236,14 @@
 .encadre-attention h2 { color: var(--jaune); }
 .encadre-regle { border-left-color: var(--bleu); }
 .info-lignes { margin: 0; padding-left: 1.25rem; display: grid; gap: 0.375rem; line-height: 1.5; }
+/* Photos commentées d'une partie « info » (où mesurer chaque composant) */
+.figures { display: grid; gap: 1rem; margin-top: 1rem; }
+.figure-carnet { margin: 0; padding: 0.75rem; background: var(--gris-fond); }
+.figure-carnet figcaption { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.25rem 0.75rem; margin-bottom: 0.625rem; }
+.figure-carnet figcaption strong { font-size: 1.0625rem; }
+.figure-carnet figcaption span { color: var(--texte-2); font-size: 0.9375rem; }
+.figure-images { display: flex; flex-wrap: wrap; gap: 0.75rem; align-items: flex-start; }
+.figure-images img { display: block; flex: 1 1 16rem; min-width: 0; max-width: 100%; max-height: 22rem; object-fit: contain; }
 /* Cases à compléter */
 .liste-trous { margin: 0; padding-left: 1.5rem; display: grid; gap: 0.5rem; line-height: 2.2; }
 .ligne-trous span { white-space: pre-wrap; }

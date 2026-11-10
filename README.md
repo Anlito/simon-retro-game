@@ -38,7 +38,8 @@ npm test
 
 `npm test` télécharge d'abord le noyau et le parcours publiés de Labo Blocs dans `.cache/` (ignoré par Git).
 `npm start` lance le serveur local (http://localhost:8080), `npm run exemples` crée des équipes fictives dans
-`exemples/` pour essayer `prof.html`, `npm run archive` crée le ZIP pour le dossier réseau.
+`exemples/` pour essayer `prof.html`, `npm run archive` crée le ZIP pour le dossier réseau. `npm run cotes` redessine les flèches longueur, largeur, hauteur et diamètre sur les photos de
+`docs/photos-composants/` (positions dans `tools/cotes-photos.js`) et enregistre les images du carnet dans `site/img/mesures/`.
 
 ## Origine
 

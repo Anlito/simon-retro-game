@@ -26,7 +26,7 @@ definirCarnet({
   "titre": "Simon Rétro Game",
   "onglets": [
     { "cle": "projet", "titre": "Le projet", "icone": "drapeau", "parties": ["mission", "concours", "feuille-de-route", "page-de-garde", "logo"] },
-    { "cle": "analyse", "titre": "Analyse", "icone": "variables", "parties": ["chaine", "classement", "fonctionnement", "dimensions-aide", "dimensions"] },
+    { "cle": "analyse", "titre": "Analyse", "icone": "variables", "parties": ["chaine", "classement", "fonctionnement", "dimensions-aide", "dimensions-reperes", "dimensions"] },
     { "cle": "boitier", "titre": "Boîtier 3D", "icone": "crayon", "photos": true, "parties": ["boitier-cahier", "forme", "modele-3d", "difficultes"] },
     { "cle": "affiche", "titre": "Affiche et fiche", "icone": "imprimer", "parties": ["affiche-consigne", "affiche-relecture", "affiche", "fiche-consigne", "fiche-relecture", "fiche-explicative"] },
     { "cle": "cablage", "titre": "Câblage", "icone": "bouton", "parties": ["standard", "branchements", "avant-usb"] },
@@ -107,9 +107,28 @@ definirCarnet({
         "Outil : le pied à coulisse, au dixième de millimètre près.",
         "Pour un trou, ajoute un peu de jeu : environ 0,5 mm de plus que la pièce, sinon elle ne passe pas après l’impression."
       ] },
+    { "id": "dimensions-reperes", "type": "info", "titre": "Où mesurer ? Longueur, largeur, hauteur",
+      "lignes": [
+        "Longueur : le plus grand côté, l’objet posé à plat et vu de dessus.",
+        "Largeur : l’autre côté, toujours vu de dessus.",
+        "Hauteur : l’objet vu de côté, du point le plus haut au point le plus bas, avec les pattes et les broches qui dépassent dessous.",
+        "Diamètre : pour un objet rond, la largeur du cercle. Écris-le dans Longueur et dans Largeur : dans Tinkercad, un cylindre a la même longueur et la même largeur."
+      ],
+      "figures": [
+        { "titre": "Bouton d’arcade", "images": [{ "src": "img/mesures/bouton-dessous.jpg", "alt": "Bouton d’arcade vu de dessous : la flèche Diamètre traverse le rond d’un bord à l’autre." }, { "src": "img/mesures/bouton-cote.jpg", "alt": "Bouton d’arcade vu de côté : la flèche Hauteur va du dessus du bouton au bout des pattes, la flèche Diamètre suit le rebord du haut." }],
+          "note": "Le diamètre se mesure sur le rebord, la partie la plus large." },
+        { "titre": "LED", "images": [{ "src": "img/mesures/led.jpg", "alt": "LED : la flèche Diamètre traverse le bas du plastique, la flèche Hauteur va du sommet au bas du plastique, sans les pattes." }],
+          "note": "Sans les pattes : on les plie au montage." },
+        { "titre": "Buzzer", "images": [{ "src": "img/mesures/buzzer-dessus.jpg", "alt": "Buzzer vu de dessus : la flèche Longueur va du bord du buzzer rond au bout des broches, la flèche Largeur suit le petit côté de la carte." }, { "src": "img/mesures/buzzer-cote.jpg", "alt": "Buzzer vu de côté : la flèche Hauteur va du dessus du buzzer au bas des soudures." }],
+          "note": "La longueur va jusqu’au bout des broches." },
+        { "titre": "Carte Arduino Uno", "images": [{ "src": "img/mesures/arduino-dessus.jpg", "alt": "Carte Arduino vue de dessus : la flèche Longueur va du bord gauche au bout de la prise USB, la flèche Largeur suit le petit côté de la carte." }, { "src": "img/mesures/arduino-cote.jpg", "alt": "Carte Arduino vue de côté : la flèche Hauteur va du dessus de la prise USB au bout des broches sous la carte." }],
+          "note": "La prise USB dépasse : elle compte dans la longueur et dans la hauteur." },
+        { "titre": "Platine d’essai", "images": [{ "src": "img/mesures/platine-dessus.jpg", "alt": "Platine d’essai vue de dessus : la flèche Longueur suit le grand côté, la flèche Largeur le petit côté." }, { "src": "img/mesures/platine-cote.jpg", "alt": "Platine d’essai vue de côté : la flèche Hauteur va du dessus du plastique au bas de la mousse collée dessous." }],
+          "note": "Les petits ergots sur les côtés ne comptent pas." }
+      ] },
     { "id": "dimensions", "type": "tableau", "titre": "Relevé de dimensions", "note": true,
-      "consigne": "Mesure chaque composant (en millimètres) et note l’outil utilisé.",
-      "colonnes": ["Composant", "Longueur (mm)", "Largeur (mm)", "Hauteur ou diamètre (mm)", "Outil utilisé"],
+      "consigne": "Mesure chaque composant (en millimètres) et note l’outil utilisé. Les photos au-dessus montrent où mesurer.",
+      "colonnes": ["Composant", "Longueur (mm)", "Largeur (mm)", "Hauteur (mm)", "Outil utilisé"],
       "lignes": ["Bouton poussoir", "LED", "Buzzer", "Carte Arduino Uno", "Platine d’essai (breadboard)", "Prise du câble USB"] },
 
     // ---------- Boîtier 3D (S2 à S4) ----------

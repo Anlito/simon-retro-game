@@ -137,7 +137,15 @@
 
     function info(p) {
       if (p.id.startsWith('retenir-')) return ficheRevision(p);
-      return `<ul class="info-lignes">${(p.lignes || []).map((l) => `<li>${echapper(l)}</li>`).join('')}</ul>`;
+      return `<ul class="info-lignes">${(p.lignes || []).map((l) => `<li>${echapper(l)}</li>`).join('')}</ul>` + figures(p);
+    }
+    // Photos commentées (ex. où mesurer chaque composant) : un titre, une ou deux images, une remarque.
+    function figures(p) {
+      if (!p.figures) return '';
+      return '<div class="figures">' + p.figures.map((f) =>
+        `<figure class="figure-carnet"><figcaption><strong>${echapper(f.titre)}</strong>${f.note ? `<span>${echapper(f.note)}</span>` : ''}</figcaption>` +
+        `<div class="figure-images">${f.images.map((i) => `<img src="${echapper(i.src)}" alt="${echapper(i.alt)}" loading="lazy">`).join('')}</div></figure>`,
+      ).join('') + '</div>';
     }
 
     function introductionRevision(parties) {

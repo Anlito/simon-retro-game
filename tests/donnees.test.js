@@ -53,6 +53,17 @@ test('carnet : chaque onglet renvoie à des parties qui existent, chaque partie 
   for (const p of carnet.parties) assert.ok(types.includes(p.type), `${p.id} : type ${p.type}`);
 });
 
+test('carnet : chaque photo commentée existe et a un texte de remplacement', () => {
+  const fs = require('node:fs');
+  const path = require('node:path');
+  const figures = carnet.parties.flatMap((p) => p.figures || []);
+  assert.ok(figures.length >= 5, 'photos « où mesurer » absentes');
+  for (const f of figures) for (const i of f.images) {
+    assert.ok(fs.existsSync(path.join(__dirname, '../site', i.src)), `image absente : ${i.src}`);
+    assert.ok(i.alt && i.alt.length > 20, `texte de remplacement trop court : ${i.src}`);
+  }
+});
+
 test('carnet : chaque case à compléter a sa réponse dans la liste des choix', () => {
   for (const p of carnet.parties.filter((x) => x.type === 'trous')) {
     const trous = K.trousDe(p);

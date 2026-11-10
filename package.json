@@ -9,6 +9,7 @@
     "exemples": "node tools/exemples-equipes.js",
     "recette": "node tools/recette-centrale.js",
     "archive": "node tools/archive.js",
+    "cotes": "node tools/cotes-photos.js",
     "pretest": "node tools/dependances-tests.js"
   },
   "devDependencies": {
