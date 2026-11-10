@@ -129,7 +129,7 @@ definirCarnet({
     { "id": "dimensions", "type": "tableau", "titre": "Relevé de dimensions", "note": true,
       "consigne": "Mesure chaque composant (en millimètres) et note l’outil utilisé. Les photos au-dessus montrent où mesurer.",
       "colonnes": ["Composant", "Longueur (mm)", "Largeur (mm)", "Hauteur (mm)", "Outil utilisé"],
-      "lignes": ["Bouton poussoir", "LED", "Buzzer", "Carte Arduino Uno", "Platine d’essai (breadboard)", "Prise du câble USB"] },
+      "lignes": ["Bouton poussoir", "LED", "Buzzer", "Carte Arduino Uno", "Platine d’essai (breadboard)"] },
 
     // ---------- Boîtier 3D (S2 à S4) ----------
     { "id": "boitier-cahier", "type": "info", "titre": "Le cahier des charges du boîtier", "encadre": "regle",
