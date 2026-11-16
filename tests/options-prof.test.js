@@ -25,9 +25,9 @@ test('évaluations professeur : persistance, export/import et rejet sans perdre 
  a.importer(texte);assert.equal(a.pour(equipe())['modele-3d'],3);
 });
 
-test('parcours central : accepte la source compatible et refuse un autre parcours',()=>{
+test('parcours centraux : les deux niveaux doivent être chargés et compatibles',()=>{
  const code=fs.readFileSync(require('node:path').join(__dirname,'../site/js/parcours-source.js'),'utf8');
- const contexte=id=>({Atelier:{projet:{parcours:'simon'},catalogue:{paquet:()=>({brut:{id},exercices:Array.from({length:12},(_,i)=>({numero:i+1}))})}},LaboBlocs:{VERSION_MOTEUR:'0.4.0',controler:()=>[]}});
- const bon=contexte('simon');vm.runInNewContext(code,bon);assert.equal(bon.Atelier.origineParcours,'Labo Blocs en ligne');
- assert.throws(()=>vm.runInNewContext(code,contexte('autre')),/indisponible/);
+ const contexte=ids=>({Atelier:{projet:{parcours:'simon',parcoursParNiveau:{5:'simon-5e',4:'simon'}},catalogue:{choisir:()=>{},paquet:id=>ids.includes(id)?({brut:{id},exercices:Array.from({length:12},(_,i)=>({numero:i+1}))}):null}},LaboBlocs:{VERSION_MOTEUR:'0.4.0',controler:()=>[]}});
+ const bon=contexte(['simon','simon-5e']);vm.runInNewContext(code,bon);assert.equal(bon.Atelier.origineParcours,'Labo Blocs en ligne');
+ assert.throws(()=>vm.runInNewContext(code,contexte(['simon'])),/simon-5e indisponible/);
 });

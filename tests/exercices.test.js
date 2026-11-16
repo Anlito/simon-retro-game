@@ -37,9 +37,29 @@ for (const ex of exercices) {
   });
 }
 
-test('chaque exercice de 6 à 12 reprend le programme de l’exercice précédent', () => {
-  for (let n = 6; n <= 12; n++) assert.equal(parId[String(n)].reprendreProgramme, `simon-${String(n - 1).padStart(2, '0')}`);
+test('4e : les exercices 10 à 12 reprennent le jeu de l’élève ; les exercices guidés repartent de leur départ', () => {
+  for (let n = 10; n <= 12; n++) assert.equal(parId[String(n)].reprendreProgramme, `simon-${String(n - 1).padStart(2, '0')}`);
+  for (let n = 5; n <= 9; n++) assert.equal(parId[String(n)].sansReprise, true, `exercice ${n}`);
 });
+
+// Parcours de 5e (très guidé) : même vérification, départs presque écrits.
+const exercices5 = chargerExercices('simon-5e');
+test('5e : 12 exercices, mêmes identifiants et mêmes scénarios que la 4e ; 1 à 4 identiques', () => {
+  assert.deepEqual(exercices5.map((e) => e.id), exercices.map((e) => e.id));
+  for (const [k, e] of exercices5.entries()) {
+    assert.deepEqual(e.scenarios, exercices[k].scenarios, `exercice ${e.id}`);
+    if (k < 4) assert.deepEqual(e, exercices[k]);
+  }
+});
+for (const ex of exercices5.filter((e) => e.blocsDepart)) {
+  test(`5e, exercice ${ex.id} : le départ passe par Blockly (commentaires compris) et ne réussit pas tout seul`, () => {
+    const { programme, horsProgramme, incomplets } = depuisBlockly(versBlockly(ex.blocsDepart));
+    assert.deepEqual(horsProgramme, []);
+    assert.deepEqual(incomplets, []);
+    assert.equal(valider(ex, programme).reussi, false);
+    assert.equal(valider(ex, ex.solutionReference).reussi, true);
+  });
+}
 
 test('exercice 1 : la LED sur une autre broche est décrite, sans donner la réponse', () => {
   const r = valider(parId['1'], prog([led('D2', 1)]));

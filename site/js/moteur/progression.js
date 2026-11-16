@@ -18,6 +18,7 @@
   const C = enNode ? require('./carnet.js') : global.Atelier;
   const LB = enNode ? require(require('../../../tools/dependances-tests.js').noyau) : global.LaboBlocs;
   const catalogue = () => (enNode ? require('./catalogue.js').catalogue : global.Atelier.catalogue);
+  const parcoursDeClasse = enNode ? require('./catalogue.js').parcoursDeClasse : global.Atelier.parcoursDeClasse;
 
   const PROJET = () => (enNode ? require('./catalogue.js').projet : global.Atelier.projet);
   const APPLICATION = PROJET().id;
@@ -25,6 +26,8 @@
   const ORDRE = enNode ? catalogue().ordre : global.Atelier.catalogue.ordre;
 
   const paquet = () => catalogue().paquet();
+  // Parcours d'une équipe : celui du niveau de sa classe (le parcours choisi s'il n'est pas chargé).
+  const paquetDe = (d) => catalogue().paquet(parcoursDeClasse(PROJET(), d && d.equipe && d.equipe.classe)) || paquet();
   const idDe = (numero) => {
     const e = paquet().exercices.find((x) => String(x.numero) === String(numero));
     return e ? e.id : null;
@@ -39,7 +42,7 @@
 
   // Vue de l'atelier (exercices par numéro), recalculée à chaque lecture, jamais écrite dans le fichier.
   function relier(d) {
-    const changes = LB.relierParcours(d, paquet());
+    const changes = LB.relierParcours(d, paquetDe(d));
     delete d.exercices;
     delete d.exerciceCourant;
     d.formatVersion = FORMAT;
@@ -62,7 +65,7 @@
   }
 
   function creer(equipe) {
-    const d = LB.creerSauvegarde(equipe, { application: APPLICATION, parcours: paquet(), projet: PROJET().projet });
+    const d = LB.creerSauvegarde(equipe, { application: APPLICATION, parcours: paquetDe({ equipe }), projet: PROJET().projet });
     delete d.projet;
     d.formatVersion = FORMAT;
     d.carnet = C.carnetVide();
@@ -105,23 +108,23 @@
   // s'ouvre après l'exercice qui le précède).
   function estDebloque(d, numero, options) {
     const id = idDe(numero);
-    return !!id && LB.estDebloque(d, paquet(), id, options);
+    return !!id && LB.estDebloque(d, paquetDe(d), id, options);
   }
 
   // Exercice à ouvrir en reprenant (numéro).
   function aReprendre(d) {
-    return numeroDe(LB.exerciceAReprendre(d, paquet()));
+    return numeroDe(LB.exerciceAReprendre(d, paquetDe(d)));
   }
 
   // Avancement affiché : exercices obligatoires réussis (les défis ne comptent pas).
   function avancement(d) {
-    return LB.avancement(d, paquet()).reussis;
+    return LB.avancement(d, paquetDe(d)).reussis;
   }
 
   // Écritures par numéro, pour les outils et les tests (en classe, c'est l'écran d'exercice de Labo Blocs qui écrit).
-  const exerciceDuParcours = (numero) => paquet().exercices.find((x) => String(x.numero) === String(numero));
+  const exerciceDuParcours = (d, numero) => paquetDe(d).exercices.find((x) => String(x.numero) === String(numero));
   const noterOuverture = (d, numero) => LB.noterOuverture(d, idDe(numero));
-  const noterVerification = (d, numero, resultat) => LB.noterVerification(d, exerciceDuParcours(numero), resultat);
+  const noterVerification = (d, numero, resultat) => LB.noterVerification(d, exerciceDuParcours(d, numero), resultat);
   const noterIndice = (d, numero, niveau) => LB.noterIndice(d, idDe(numero), niveau);
   const ajouterTemps = (d, numero, secondes) => LB.ajouterTemps(d, idDe(numero), secondes);
 
@@ -143,6 +146,7 @@
     estDebloque,
     exerciceAReprendre: aReprendre,
     avancement,
+    paquetDe,
   };
   if (enNode) module.exports = api;
   else Object.assign((global.Atelier = global.Atelier || {}), api);

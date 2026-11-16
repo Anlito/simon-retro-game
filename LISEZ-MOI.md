@@ -10,9 +10,13 @@ navigateur, et le travail de chaque équipe est enregistré dans **un fichier** 
 - **Professeur** : `prof.html` (aucun lien depuis l'écran des élèves)
 - **Présentation du projet à la classe** : `presentation.html` (bouton « Présentation » de `prof.html`). Flèches ou
   espace pour avancer, **F** pour le plein écran. Fond uni et textes très grands pour un vidéoprojecteur peu lumineux.
-- **Mode enseignant** (exercices tous ouverts, bouton « Solution », rien n'est enregistré) : `index.html?enseignant=1`
+- **Mode enseignant** (exercices tous ouverts, bouton « Solution », rien n'est enregistré) : boutons « Atelier 5e » et
+  « Atelier 4e » de `prof.html` (`index.html?enseignant=1&niveau=5` ou `&niveau=4`)
+- **Deux parcours** : la classe de l'équipe choisit. En **5e**, les programmes de départ sont presque écrits
+  (fonctions déjà faites, une bulle « Ici : … » sur le bloc à ajouter) ; en **4e**, l'élève écrit davantage. Les
+  exercices 1 à 4 et la vérification sont les mêmes, jusqu'au Simon final (tours qui s'allongent).
 
-Le moteur, Blockly, le simulateur et le parcours « simon » sont chargés depuis **Labo Blocs en ligne** (comme le
+Le moteur, Blockly, le simulateur et les parcours « simon » (4e) et « simon-5e » sont chargés depuis **Labo Blocs en ligne** (comme le
 Labyrinthe) : **une connexion Internet est nécessaire**. Après une publication du parcours dans Labo Blocs,
 recharger les pages.
 
@@ -84,7 +88,7 @@ de la platine, et un seul fil relie ce rail au GND de l'Arduino. Ce standard est
 | les **niveaux** (5, 4) et le **dossier du projet** | `site/donnees/classes.js` |
 | le **standard de câblage** (tutoriel) | `site/donnees/cablage.js` |
 | le nom, les titres, la couleur du projet | `site/donnees/projet.js` |
-| les **exercices** (consignes, broches, tests, indices, fiches « À savoir », lexique) | dans **Labo Blocs** (parcours « simon ») |
+| les **exercices** (consignes, broches, tests, indices, fiches « À savoir », lexique) | dans **Labo Blocs** (parcours « simon » et « simon-5e ») |
 
 Les réponses des élèves sont rangées sous l'identifiant de chaque partie : ne pas changer un `"id"` en cours d'année.
 

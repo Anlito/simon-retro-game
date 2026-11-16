@@ -882,8 +882,7 @@
   // Niveaux par compétence (calculés par Labo Blocs) pour le Carnet de classe : fichier « …labo-resultats.json »,
   // importé dans le Carnet (projet › Notes › « Importer des résultats Labo Blocs »).
   function equipesLaboBlocs(liste) {
-    const paquet = A.catalogue.paquet();
-    return liste.map((x) => LB.chargerEquipes([{ nom: x.eq.fichier || x.eq.cle + '.json', texte: JSON.stringify(x.eq.donnees) }], [paquet]).equipes[0]).filter(Boolean);
+    return liste.map((x) => LB.chargerEquipes([{ nom: x.eq.fichier || x.eq.cle + '.json', texte: JSON.stringify(x.eq.donnees) }], [A.paquetDe(x.eq.donnees)]).equipes[0]).filter(Boolean);
   }
   $('.btn-carnet').addEventListener('click', () => {
     const equipes = equipesLaboBlocs(selection());

@@ -2,8 +2,13 @@
 const { catalogue } = require('../site/js/moteur/catalogue.js');
 
 // Exercices du parcours de Labo Blocs (parcours « simon »), au format de l'atelier (id = numéro).
-function chargerExercices() {
-  return catalogue.exercices();
+// Exercices d'un parcours (par défaut celui du projet, la 4e ; « simon-5e » pour la 5e).
+function chargerExercices(id) {
+  const avant = catalogue.paquet().id;
+  catalogue.choisir(id || avant);
+  const liste = catalogue.exercices();
+  catalogue.choisir(avant);
+  return liste;
 }
 
 // Standard de câblage de la console Simon (site/donnees/cablage.js : le tutoriel de câblage le montre).

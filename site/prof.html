@@ -31,7 +31,8 @@
   </div>
   <button type="button" class="pb-btn pb-exercices" data-ic="livre" title="Version des exercices, mise à jour depuis Labo Blocs">Exercices</button>
   <a class="pb-btn pb-presentation" href="presentation.html" target="_blank" rel="noopener" data-ic="drapeau" title="Présentation du projet à projeter en classe (F : plein écran)">Présentation</a>
-  <a class="pb-btn pb-atelier" href="index.html?enseignant=1" target="_blank" rel="noopener" data-ic="oeil" title="Atelier en mode enseignant : toutes les étapes ouvertes, rien n’est enregistré">Atelier enseignant</a>
+  <a class="pb-btn pb-atelier" href="index.html?enseignant=1&amp;niveau=5" target="_blank" rel="noopener" data-ic="oeil" title="Atelier en mode enseignant, parcours de 5e (très guidé) : toutes les étapes ouvertes, rien n’est enregistré">Atelier 5e</a>
+  <a class="pb-btn pb-atelier" href="index.html?enseignant=1&amp;niveau=4" target="_blank" rel="noopener" data-ic="oeil" title="Atelier en mode enseignant, parcours de 4e : toutes les étapes ouvertes, rien n’est enregistré">Atelier 4e</a>
 </header>
 
 <main class="prof-contenu">
@@ -67,7 +68,7 @@
     <ul class="prof-notes">
       <li>Les fichiers sont lus dans ce navigateur : rien n’est envoyé ni enregistré sur le site.</li>
       <li>La note est calculée à partir du travail enregistré (exercices, indices, vérifications ratées, carnet) : voir « Barème ».</li>
-      <li>« Atelier enseignant » ouvre l’atelier avec toutes les étapes, pour préparer ou montrer une correction : rien n’y est enregistré.</li>
+      <li>« Atelier 5e » et « Atelier 4e » ouvrent l’atelier avec le parcours de ce niveau et toutes les étapes, pour préparer ou montrer une correction : rien n’y est enregistré.</li>
     </ul>
   </section>
 
@@ -93,7 +94,8 @@
       </label>
       <label class="case"><input type="checkbox" class="filtre-bloquees"> Équipes bloquées seulement</label>
       <span class="prof-outils-aide">Cliquez sur une équipe pour voir son travail.</span>
-      <a class="btn-secondaire lien-atelier-enseignant" href="index.html?enseignant=1" target="_blank" rel="noopener" data-ic="oeil" title="Toutes les étapes ouvertes, rien n’est enregistré">Atelier enseignant</a>
+      <a class="btn-secondaire lien-atelier-enseignant" href="index.html?enseignant=1&amp;niveau=5" target="_blank" rel="noopener" data-ic="oeil" title="Parcours de 5e : toutes les étapes ouvertes, rien n’est enregistré">Atelier enseignant 5e</a>
+      <a class="btn-secondaire lien-atelier-enseignant" href="index.html?enseignant=1&amp;niveau=4" target="_blank" rel="noopener" data-ic="oeil" title="Parcours de 4e : toutes les étapes ouvertes, rien n’est enregistré">Atelier enseignant 4e</a>
     </div>
 
     <div class="prof-tableau-zone"><table class="prof-tableau"></table></div>
@@ -214,6 +216,7 @@
 <script type="application/x-atelier" data-src="js/moteur/classe.js"></script>
 <script type="application/x-atelier" data-src="js/moteur/xlsx.js"></script>
 <script type="application/x-atelier" data-src="https://anlito.github.io/labo-blocs/parcours/simon/parcours.js"></script>
+<script type="application/x-atelier" data-src="https://anlito.github.io/labo-blocs/parcours/simon-5e/parcours.js"></script>
 <script type="application/x-atelier" data-src="js/parcours-source.js"></script>
 <script type="application/x-atelier" data-src="donnees/notation.js"></script>
 <script type="application/x-atelier" data-src="donnees/carnet.js"></script>

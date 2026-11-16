@@ -25,7 +25,7 @@ test('une nouvelle équipe : format 2, rubrique « programmation » reliée au p
   assert.deepEqual(d.equipe, { eleves: ['Léa', 'Hugo'], classe: '5A' });
   assert.match(d.creeLe, /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}$/);
   assert.equal(d.programmation.format, 'labo-blocs/sauvegarde');
-  assert.deepEqual(d.programmation.parcours, { id: 'simon', version: paquet.versionParcours });
+  assert.deepEqual(d.programmation.parcours, { id: 'simon-5e', version: P.paquetDe(d).versionParcours }); // classe de 5e
   assert.deepEqual(d.exercices, {});
   assert.ok(d.carnet);
   // La vue par numéro n'est jamais écrite dans le fichier.
@@ -104,4 +104,18 @@ test('fichiers refusés sans rien écraser : autre application, version plus ré
   const r = P.lireSauvegarde('﻿' + JSON.stringify(d));
   assert.equal(r.ok, true);
   assert.equal(r.donnees.exercices['1'].statut, 'reussi');
+});
+
+test('chaque équipe a le parcours de son niveau : 5A → 5e (très guidé), 4B → 4e ; rouvrir ne marque rien « modifié »', () => {
+  const d5 = P.creerProgression({ eleves: ['Léa'], classe: '5A' });
+  const d4 = P.creerProgression({ eleves: ['Hugo'], classe: '4B' });
+  assert.equal(d5.programmation.parcours.id, 'simon-5e');
+  assert.equal(d4.programmation.parcours.id, 'simon');
+  assert.equal(P.paquetDe(d5).id, 'simon-5e');
+  // Exercice 9 réussi avec le parcours de 5e, puis fichier rouvert : toujours réussi, rien à revérifier.
+  LB.noterVerification(d5, P.paquetDe(d5).exercices.find((e) => e.numero === '9'), { reussi: true, message: '', programme: null });
+  const r = P.lireSauvegarde(JSON.stringify(d5));
+  assert.equal(r.ok, true);
+  assert.deepEqual(r.changes, []);
+  assert.equal(r.donnees.exercices['9'].statut, 'reussi');
 });

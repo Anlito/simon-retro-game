@@ -126,6 +126,7 @@
 <script type="application/x-atelier" data-src="js/moteur/progression.js"></script>
 <!-- Exercices (parcours de Labo Blocs, mis à jour depuis l'outil du professeur) et données du projet -->
 <script type="application/x-atelier" data-src="https://anlito.github.io/labo-blocs/parcours/simon/parcours.js"></script>
+<script type="application/x-atelier" data-src="https://anlito.github.io/labo-blocs/parcours/simon-5e/parcours.js"></script>
 <script type="application/x-atelier" data-src="js/parcours-source.js"></script>
 <script type="application/x-atelier" data-src="donnees/classes.js"></script>
 <script type="application/x-atelier" data-src="donnees/carnet.js"></script>
@@ -148,17 +149,21 @@
       try {
         var r = JSON.parse(localStorage.getItem(Atelier.projet.id + '-revue'));
         if (r && r.donnees) {
+          Atelier.choisirParcours(r.donnees);
           document.title = 'Lecture · ' + r.donnees.equipe.eleves.join(', ');
           return Atelier.demarrerLecture(Atelier.creerSession({ donnees: Atelier.relierDonnees(r.donnees), lecture: true }), { exercice: r.exercice, programme: r.programme });
         }
       } catch (e) { /* on ouvre l'accueil */ }
     }
-    // Mode enseignant : pas d'accueil, une équipe fictive, rien n'est enregistré.
+    // Mode enseignant : pas d'accueil, une équipe fictive, rien n'est enregistré. ?niveau=5 : le parcours de 5e.
     if (q.has('enseignant')) {
-      return Atelier.demarrerLecture(Atelier.creerSession({ donnees: Atelier.creerProgression({ eleves: ['Mode enseignant'], classe: '' }), lecture: true }));
+      var equipe = { eleves: ['Mode enseignant'], classe: q.get('niveau') ? q.get('niveau') + 'e' : '' };
+      Atelier.choisirParcours({ equipe: equipe });
+      return Atelier.demarrerLecture(Atelier.creerSession({ donnees: Atelier.creerProgression(equipe), lecture: true }));
     }
     // Élèves : créer ou ouvrir le projet de l'équipe, puis le carnet de projet.
     Atelier.demarrerAccueil(function (r) {
+      Atelier.choisirParcours(r.donnees);
       var session = Atelier.creerSession(r);
       Atelier.demarrerProjet(session);
       var modifies = r.donnees.exercicesModifies || [];

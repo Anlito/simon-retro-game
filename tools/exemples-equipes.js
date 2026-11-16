@@ -23,11 +23,12 @@ const iso = () => {
   return `${d.getFullYear()}-${z(d.getMonth() + 1)}-${z(d.getDate())}T${z(d.getHours())}:${z(d.getMinutes())}:${z(d.getSeconds())}`;
 };
 
-const duParcours = (ex) => catalogue.paquet().exercices.find((e) => e.id === ex.idParcours);
+// L'exercice dans le parcours de l'équipe (5e ou 4e, d'après sa classe).
+const duParcours = (d, ex) => P.paquetDe(d).exercices.find((e) => e.id === ex.idParcours);
 
 function verifier(d, ex, programme) {
-  const r = LB.valider(duParcours(ex), programme);
-  LB.noterVerification(d, duParcours(ex), { reussi: r.reussi, message: r.message, programme: LB.versV1(programme) });
+  const r = LB.valider(duParcours(d, ex), programme);
+  LB.noterVerification(d, duParcours(d, ex), { reussi: r.reussi, message: r.message, programme: LB.versV1(programme) });
   const e = d.exercices[ex.id];
   e.historique[e.historique.length - 1].date = iso();
   if (r.reussi && e.historique.filter((h) => h.type === 'verification' && h.reussi).length === 1) e.premiereReussite = iso();

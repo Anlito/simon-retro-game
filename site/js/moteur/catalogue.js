@@ -13,18 +13,33 @@
   const enNode = typeof module === 'object' && module.exports;
   const LB = enNode ? require(require('../../../tools/dependances-tests.js').noyau) : global.LaboBlocs;
 
+  // Un parcours par niveau (donnees/projet.js, parcoursParNiveau) : tous sont chargés ; « paquet() » est celui choisi
+  // (le premier défini, puis celui de l'équipe ouverte), « paquet(id) » un parcours précis. Les exercices gardent les
+  // mêmes identifiants et numéros d'un niveau à l'autre : seuls leurs départs, consignes et indices changent.
   function creerCatalogue() {
+    const paquets = new Map();
     let paquet = null;
     const ordre = []; // numéros dans l'ordre du parcours (« 1 » … « 8 »), tenu à jour sur place
+    const choisir = (p) => {
+      paquet = p;
+      ordre.splice(0, ordre.length, ...paquet.exercices.map((e) => String(e.numero)));
+    };
     return {
       // Parcours brut (definirParcours) : préparé (paramètres remplacés, empreintes).
       definirParcours(brut) {
-        paquet = LB.preparer(brut);
-        paquet.brut = brut;
-        ordre.splice(0, ordre.length, ...paquet.exercices.map((e) => String(e.numero)));
+        const p = LB.preparer(brut);
+        p.brut = brut;
+        paquets.set(p.id, p);
+        if (!paquet || paquet.id === p.id) choisir(p);
+      },
+      // Choisit le parcours (identifiant) ; un identifiant inconnu ne change rien.
+      choisir(id) {
+        if (paquets.has(id)) choisir(paquets.get(id));
+        return paquet;
       },
       ordre,
-      paquet: () => paquet,
+      paquet: (id) => (id ? paquets.get(id) || null : paquet),
+      paquets: () => [...paquets.values()],
       parametres: () => (paquet ? paquet.parametres : {}),
       // Exercices dans l'ordre du parcours, au format de l'atelier (id = numéro).
       exercices() {
@@ -56,20 +71,26 @@
     return x;
   }
 
-  // Sous Node (tests, outils) : lit le parcours du site sans navigateur.
-  function chargerParcours(chemin) {
+  // Sous Node (tests, outils) : lit les parcours du site sans navigateur (le premier est choisi).
+  function chargerParcours(chemins) {
     const fs = require('node:fs');
     const vm = require('node:vm');
-    const path = require('node:path');
     const c = creerCatalogue();
+    const dep = require('../../../tools/dependances-tests.js');
     // Copie JSON : des objets de ce contexte (et non de celui du script).
-    vm.runInNewContext(fs.readFileSync(chemin || require('../../../tools/dependances-tests.js').parcours, 'utf8'), {
-      definirParcours: (p) => c.definirParcours(JSON.parse(JSON.stringify(p))),
-    });
+    for (const chemin of [].concat(chemins || [dep.parcours, dep.parcours5e])) {
+      vm.runInNewContext(fs.readFileSync(chemin, 'utf8'), { definirParcours: (p) => c.definirParcours(JSON.parse(JSON.stringify(p))) });
+    }
     return c;
   }
 
-  const api = { creerCatalogue };
+  // Parcours d'une équipe : celui du niveau de sa classe (« 5A » → parcoursParNiveau["5"]), sinon le parcours du projet.
+  function parcoursDeClasse(projet, classe) {
+    const m = /^\s*(\d)/.exec(String(classe || ''));
+    return (m && projet.parcoursParNiveau && projet.parcoursParNiveau[m[1]]) || projet.parcours;
+  }
+
+  const api = { creerCatalogue, parcoursDeClasse };
   if (enNode) {
     api.chargerParcours = chargerParcours;
     api.chargerDonnees = chargerDonnees;
@@ -86,12 +107,17 @@
     const Atelier = (global.Atelier = global.Atelier || {});
     Object.assign(Atelier, api);
     Atelier.catalogue = creerCatalogue();
-    // Le parcours de Labo Blocs appelle definirParcours (le premier défini est celui du projet).
+    // Les parcours de Labo Blocs appellent definirParcours : ceux du projet (un par niveau) vont au catalogue.
     const definirLabo = global.definirParcours;
     global.definirParcours = (p) => {
-      if (!Atelier.catalogue.paquet()) Atelier.catalogue.definirParcours(p);
+      const pr = Atelier.projet || {};
+      const ids = [pr.parcours, ...Object.values(pr.parcoursParNiveau || {})];
+      if (!Atelier.catalogue.paquet() || ids.includes(p.id)) Atelier.catalogue.definirParcours(p);
       if (definirLabo) definirLabo(p);
     };
+    // Parcours de l'équipe (sa classe) ; choisirParcours le rend courant (écran d'exercice, carnet, listes).
+    Atelier.parcoursDe = (d) => parcoursDeClasse(Atelier.projet, d && d.equipe && d.equipe.classe);
+    Atelier.choisirParcours = (d) => Atelier.catalogue.choisir(Atelier.parcoursDe(d));
     global.definirProjetAtelier = (projet) => (Atelier.projet = projet);
     global.definirLexique = (liste) => (Atelier.lexique = liste);
     global.definirClasses = (liste) => (Atelier.classes = liste);

@@ -4,9 +4,13 @@ Carnet de projet des classes de 5e et 4e : un bureau d'études conçoit un jeu S
 programme), la classe vote sur les affiches, un seul boîtier est imprimé (la Console Officielle) et le Grand Tournoi
 se joue avec le programme de chaque équipe.
 
-Le moteur, Blockly, le simulateur (avec la console Simon) et le parcours « simon » sont chargés depuis
-**Labo Blocs en ligne**, sans copie dans ce dépôt, comme le Labyrinthe robotisé. Une connexion Internet est
-nécessaire. Les JSON des équipes, leurs captures et leurs PDF restent dans les dossiers des équipes.
+Le moteur, Blockly, le simulateur (avec la console Simon) et les parcours sont chargés depuis **Labo Blocs en ligne**,
+sans copie dans ce dépôt, comme le Labyrinthe robotisé. Une connexion Internet est nécessaire. Les JSON des équipes,
+leurs captures et leurs PDF restent dans les dossiers des équipes.
+
+**Un parcours par niveau** (`parcoursParNiveau` dans `site/donnees/projet.js`) : la classe de l'équipe choisit.
+5A, 5B… → « simon-5e », très guidé (programme de départ presque écrit, un ou deux blocs à ajouter) ; 4A… → « simon »
+(4e). Mêmes exercices 1 à 4, même vérification ensuite : seuls le départ, la consigne et les indices changent.
 
 - Élèves : `site/index.html` · Professeur : `site/prof.html` · Tutoriel de câblage : `site/tuto-cablage.html` · Présentation à la classe : `site/presentation.html`
 - Mode d'emploi du professeur : [LISEZ-MOI.md](LISEZ-MOI.md)
@@ -36,7 +40,8 @@ jaune ambre, jamais en rouge. L’écran d’exercice de Labo Blocs garde ses co
 npm test
 ```
 
-`npm test` télécharge d'abord le noyau et le parcours publiés de Labo Blocs dans `.cache/` (ignoré par Git).
+`npm test` télécharge d'abord le noyau et les deux parcours publiés de Labo Blocs dans `.cache/` (ignoré par Git) ;
+avec `LABO_BLOCS=<dossier de labo-blocs>`, les parcours sont lus dans ce dossier (essai avant leur publication).
 `npm start` lance le serveur local (http://localhost:8080), `npm run exemples` crée des équipes fictives dans
 `exemples/` pour essayer `prof.html`, `npm run archive` crée le ZIP pour le dossier réseau. `npm run cotes` redessine les flèches longueur, largeur, hauteur et diamètre sur les photos de
 `docs/photos-composants/` (positions dans `tools/cotes-photos.js`) et enregistre les images du carnet dans `site/img/mesures/`.
@@ -45,4 +50,4 @@ npm test
 
 Repris du projet Labyrinthe robotisé (`Anlito/labyrinthe-robotise`, 21/10/2026). Contenus : `carnet-projet.docx`,
 `affiche-consigne.docx`, `fiche-explicative.docx`, `Fiche_Retenir_Simon_Retro_Game.pdf`, `simon-briefing.html` et
-le tutoriel de câblage d'origine (étapes 1 à 5). Les exercices sont le parcours « simon » de Labo Blocs.
+le tutoriel de câblage d'origine (étapes 1 à 5). Les exercices sont les parcours « simon » (4e) et « simon-5e » de Labo Blocs.
