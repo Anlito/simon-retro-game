@@ -134,7 +134,9 @@ definirCarnet({
     // ---------- Boîtier 3D (S2 à S4) ----------
     { "id": "boitier-cahier", "type": "info", "titre": "Le cahier des charges du boîtier", "encadre": "regle",
       "lignes": [
-        "C’est un Simon de poche : il doit tenir dans la main. Pas de dimension imposée, mais le plus compact possible.",
+        "C’est un Simon de poche, facile à transporter : le plus compact possible, dans ces limites.",
+        "Au plus 200 mm × 200 mm (vu de dessus) : c’est la taille du plateau de l’imprimante 3D.",
+        "Au moins 50 mm de hauteur : la carte Arduino, les boutons poussoirs et le câblage doivent tenir dedans.",
         "4 trous pour les boutons, 4 pour les LED, une ouverture pour le son du buzzer et un accès pour le câble USB.",
         "Un couvercle pour fermer la boîte, et assez de place dedans pour l’Arduino et la platine (voir ton relevé de dimensions).",
         "Modélisation sur Tinkercad ou dans l’Atelier 3D (au choix, juste en dessous), puis téléchargement du fichier .stl ou .obj pour l’impression 3D."
