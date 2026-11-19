@@ -27,7 +27,7 @@ definirCarnet({
   "onglets": [
     { "cle": "projet", "titre": "Le projet", "icone": "drapeau", "parties": ["mission", "concours", "feuille-de-route", "page-de-garde", "logo"] },
     { "cle": "analyse", "titre": "Analyse", "icone": "variables", "parties": ["chaine", "classement", "fonctionnement", "dimensions-aide", "dimensions-reperes", "dimensions"] },
-    { "cle": "boitier", "titre": "Boîtier 3D", "icone": "crayon", "photos": true, "parties": ["boitier-cahier", "forme", "modele-3d", "difficultes"] },
+    { "cle": "boitier", "titre": "Boîtier 3D", "icone": "crayon", "photos": true, "parties": ["boitier-cahier", "boitier-outil", "forme", "modele-3d", "difficultes"] },
     { "cle": "affiche", "titre": "Affiche et fiche", "icone": "imprimer", "parties": ["affiche-consigne", "affiche-relecture", "affiche", "fiche-consigne", "fiche-relecture", "fiche-explicative"] },
     { "cle": "cablage", "titre": "Câblage", "icone": "bouton", "parties": ["standard", "branchements", "avant-usb"] },
     { "cle": "algorithme", "titre": "Algorithme", "icone": "decisions", "parties": ["algorithme", "algorithme-jeu", "symboles"] },
@@ -54,7 +54,7 @@ definirCarnet({
       "consigne": "Coche chaque étape quand elle est terminée.",
       "cases": [
         "S1 · Analyse : mesures des composants réels",
-        "S2 à S4 · Modélisation 3D du boîtier sur Tinkercad",
+        "S2 à S4 · Modélisation 3D du boîtier (Tinkercad ou Atelier 3D)",
         "S5 et S6 · Affiche, puis vote de la classe",
         "Impression et montage de la Console Officielle (le professeur)",
         "S7 et S8 · Câblage et programmation",
@@ -112,7 +112,7 @@ definirCarnet({
         "Longueur : le plus grand côté, l’objet posé à plat et vu de dessus.",
         "Largeur : l’autre côté, toujours vu de dessus.",
         "Hauteur : l’objet vu de côté, du point le plus haut au point le plus bas, avec les pattes et les broches qui dépassent dessous.",
-        "Diamètre : pour un objet rond, la largeur du cercle. Écris-le dans Longueur et dans Largeur : dans Tinkercad, un cylindre a la même longueur et la même largeur."
+        "Diamètre : pour un objet rond, la largeur du cercle. Écris-le dans Longueur et dans Largeur : en 3D, un cylindre a la même longueur et la même largeur."
       ],
       "figures": [
         { "titre": "Bouton d’arcade", "images": [{ "src": "img/mesures/bouton-dessous.jpg", "alt": "Bouton d’arcade vu de dessous : la flèche Diamètre traverse le rond d’un bord à l’autre." }, { "src": "img/mesures/bouton-cote.jpg", "alt": "Bouton d’arcade vu de côté : la flèche Hauteur va du dessus du bouton au bout des pattes, la flèche Diamètre suit le rebord du haut." }],
@@ -137,12 +137,20 @@ definirCarnet({
         "C’est un Simon de poche : il doit tenir dans la main. Pas de dimension imposée, mais le plus compact possible.",
         "4 trous pour les boutons, 4 pour les LED, une ouverture pour le son du buzzer et un accès pour le câble USB.",
         "Un couvercle pour fermer la boîte, et assez de place dedans pour l’Arduino et la platine (voir ton relevé de dimensions).",
-        "Modélisation sur Tinkercad, puis export en fichier .stl pour l’impression 3D."
+        "Modélisation sur Tinkercad ou dans l’Atelier 3D (au choix, juste en dessous), puis téléchargement du fichier .stl ou .obj pour l’impression 3D."
+      ] },
+    { "id": "boitier-outil", "type": "info", "titre": "Choisis ton outil de modélisation",
+      "lignes": ["Deux outils au choix pour réaliser ta modélisation 3D. À la fin, télécharge ton fichier .stl ou .obj : c’est lui qui part à l’imprimante 3D."],
+      "liens": [
+        { "titre": "Tinkercad", "url": "https://www.tinkercad.com/", "bouton": "Ouvrir Tinkercad",
+          "texte": "L’outil de modélisation 3D en ligne. Le tutoriel est sur le serveur : Matière › Technologie › Tableau › Simon Rétro Game." },
+        { "titre": "Atelier 3D", "url": "https://anlito.github.io/atelier-3d/", "bouton": "Ouvrir l’Atelier 3D",
+          "texte": "Plus simple, avec l’assistant Pixel qui explique tout en direct. Tu peux suivre le projet guidé « La boîte du jeu Simon »." }
       ] },
     { "id": "forme", "type": "questions", "titre": "La forme choisie pour le boîtier",
       "questions": ["Description de la forme (à quoi ressemble-t-il ?)", "Inspiration (d’où vient l’idée ?)", "Ergonomie : comment le tient-on dans la main ?"] },
-    { "id": "modele-3d", "type": "image", "titre": "Le modèle Tinkercad final", "nombre": 2, "note": true,
-      "consigne": "Colle une capture de ton boîtier dans Tinkercad (et, si tu veux, une deuxième vue). Pense à en mettre une aussi dans ta fiche explicative." },
+    { "id": "modele-3d", "type": "image", "titre": "Le modèle 3D final", "nombre": 2, "note": true,
+      "consigne": "Colle une capture de ton boîtier (Tinkercad ou Atelier 3D) et, si tu veux, une deuxième vue. Pense à en mettre une aussi dans ta fiche explicative." },
     { "id": "difficultes", "type": "tableau", "titre": "Difficultés rencontrées et solutions trouvées",
       "colonnes": ["Difficulté", "Solution trouvée"], "lignes": 3 },
 
@@ -164,11 +172,11 @@ definirCarnet({
       "lignes": [
         "Elle n’est pas projetée au vote : c’est la preuve technique de ton projet.",
         "Le guide d’utilisation : les règles du Simon expliquées simplement à un joueur qui découvre le jeu (exemple : « Mémorise la séquence de couleurs, puis reproduis-la en appuyant sur les bons boutons. Une erreur, et la partie s’arrête ! »).",
-        "La fiche technique : une capture de ton boîtier dans Tinkercad, avec ses dimensions générales, et le tableau des capteurs et actionneurs (type, élément, rôle).",
+        "La fiche technique : une capture de ton boîtier en 3D (Tinkercad ou Atelier 3D), avec ses dimensions générales, et le tableau des capteurs et actionneurs (type, élément, rôle).",
         "Outil : Canva ou LibreOffice Writer. Une page A4, en PDF."
       ] },
     { "id": "fiche-relecture", "type": "cases", "titre": "Relecture de la fiche explicative",
-      "cases": ["Les règles sont expliquées simplement", "La capture Tinkercad a ses dimensions", "Le tableau capteurs / actionneurs est complet"] },
+      "cases": ["Les règles sont expliquées simplement", "La capture 3D a ses dimensions", "Le tableau capteurs / actionneurs est complet"] },
     { "id": "fiche-explicative", "type": "fichier", "titre": "Déposer notre fiche explicative (PDF)",
       "prefixe": "Fiche_explicative", "extension": ".pdf", "accepte": ".pdf,application/pdf" },
 
@@ -235,7 +243,7 @@ definirCarnet({
         "Le boîtier respecte les dimensions mesurées",
         "L’affiche contient le nom, le slogan et le visuel",
         "La fiche explicative explique simplement les règles du jeu",
-        "La fiche explicative contient la capture Tinkercad avec dimensions",
+        "La fiche explicative contient la capture 3D avec dimensions",
         "La fiche explicative contient le tableau capteurs / actionneurs complet",
         "Le programme respecte le standard de câblage imposé",
         "Le programme fonctionne sans erreur"

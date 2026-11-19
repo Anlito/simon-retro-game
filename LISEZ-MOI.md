@@ -51,7 +51,7 @@ de la platine, et un seul fil relie ce rail au GND de l'Arduino. Ce standard est
    |---|---|---|
    | Le projet | mission, règles du concours, feuille de route, page de garde (nom, slogan, membres), logo (image collée) | — |
    | Analyse | chaîne d'information, classement capteur / carte / actionneur, fonctionnement du Simon, relevé de dimensions (bouton, LED, buzzer, Arduino, platine, prise USB) | classement, fonctionnement |
-   | Boîtier 3D | cahier des charges (Simon de poche), forme choisie, captures Tinkercad (Ctrl+V), difficultés ; photos du professeur | — |
+   | Boîtier 3D | cahier des charges (Simon de poche), choix de l’outil (Tinkercad, tutoriel sur le serveur : Matière › Technologie › Tableau › Simon Rétro Game ; ou [Atelier 3D](https://anlito.github.io/atelier-3d/)), fichier .stl ou .obj, forme choisie, captures 3D (Ctrl+V), difficultés ; photos du professeur | — |
    | Affiche et fiche | consigne de l'affiche (Canva), relecture, **dépôt du PDF** ; consigne de la fiche explicative, relecture, dépôt du PDF | — |
    | Câblage | standard D2 à D10, branchements à retrouver, vérification avant l'USB | branchements |
    | Algorithme | l'algorithme en français, les étapes du jeu, les symboles de l'algorigramme | étapes, symboles |
@@ -73,7 +73,7 @@ de la platine, et un seul fil relie ce rail au GND de l'Arduino. Ce standard est
 - **Barème** (`donnees/notation.js`, réglable dans « Barème ») : chaque étape est notée.
   - Programmation : coefficients des exercices 1 à 11 (de 0,5 à 3 pour « Mon Simon ») ; défi n° 12 : +1 point.
   - Analyse : classement et fonctionnement (automatiques), relevé de dimensions (à la main).
-  - Boîtier 3D : captures Tinkercad (à la main, coefficient 4). Affiche : PDF déposé (à la main, coefficient 4).
+  - Boîtier 3D : captures 3D, Tinkercad ou Atelier 3D (à la main, coefficient 4). Affiche : PDF déposé (à la main, coefficient 4).
   - Câblage et algorithme : branchements, étapes du jeu, symboles (automatiques).
   - À la main : Non atteint (1/4), Partiellement atteint (2/4), Atteint (3/4), Dépassé (4/4) ; tant qu'aucun niveau
     n'est choisi, la partie reste hors du total. Exporter ses évaluations pour les garder.

@@ -137,7 +137,15 @@
 
     function info(p) {
       if (p.id.startsWith('retenir-')) return ficheRevision(p);
-      return `<ul class="info-lignes">${(p.lignes || []).map((l) => `<li>${echapper(l)}</li>`).join('')}</ul>` + figures(p);
+      return `<ul class="info-lignes">${(p.lignes || []).map((l) => `<li>${echapper(l)}</li>`).join('')}</ul>` + liens(p) + figures(p);
+    }
+    // Outils à ouvrir (ex. Tinkercad ou Atelier 3D) : une carte par outil, ouverte dans un nouvel onglet.
+    function liens(p) {
+      if (!p.liens) return '';
+      return '<div class="liens-outils">' + p.liens.map((l) =>
+        `<div class="lien-outil"><strong>${echapper(l.titre)}</strong><p>${echapper(l.texte)}</p>` +
+        `<a class="btn-principal" href="${echapper(l.url)}" target="_blank" rel="noopener">${echapper(l.bouton || 'Ouvrir')}</a></div>`,
+      ).join('') + '</div>';
     }
     // Photos commentées (ex. où mesurer chaque composant) : un titre, une ou deux images, une remarque.
     function figures(p) {

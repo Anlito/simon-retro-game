@@ -13,7 +13,7 @@ const code = (id) => {
 
 test('« Mon Simon » traduit en Arduino : la liste, ses « - 1 », les fonctions, le standard D2 à D10', () => {
   const c = code('11');
-  for (const attendu of ['struct Liste {', 'return l.elements[i - 1];', 'void allumer(float couleur);', 'void lire_bouton();', 'tone(10, ', 'pinMode(2, INPUT_PULLUP);', 'pinMode(9, OUTPUT);']) {
+  for (const attendu of ['struct Liste {', 'return l.elements[i - 1];', 'void allumer(float couleur);', 'void lire_bouton();', 'jouerNote(10, ', 'digitalWrite(10, HIGH);', 'pinMode(2, INPUT_PULLUP);', 'pinMode(9, OUTPUT);']) {
     assert.ok(c.includes(attendu), attendu);
   }
 });

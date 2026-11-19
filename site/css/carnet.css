@@ -236,6 +236,12 @@
 .encadre-attention h2 { color: var(--jaune); }
 .encadre-regle { border-left-color: var(--bleu); }
 .info-lignes { margin: 0; padding-left: 1.25rem; display: grid; gap: 0.375rem; line-height: 1.5; }
+/* Outils à ouvrir d'une partie « info » (Tinkercad ou Atelier 3D) */
+.liens-outils { display: grid; grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr)); gap: 1rem; margin-top: 1rem; }
+.lien-outil { display: flex; flex-direction: column; gap: 0.5rem; padding: 1rem; background: var(--gris-fond); }
+.lien-outil strong { font-size: 1.125rem; }
+.lien-outil p { margin: 0; flex: 1; line-height: 1.45; }
+.lien-outil .btn-principal { align-self: flex-start; text-decoration: none; }
 /* Photos commentées d'une partie « info » (où mesurer chaque composant) */
 .figures { display: grid; gap: 1rem; margin-top: 1rem; }
 .figure-carnet { margin: 0; padding: 0.75rem; background: var(--gris-fond); }
