@@ -51,7 +51,7 @@ de la platine, et un seul fil relie ce rail au GND de l'Arduino. Ce standard est
    |---|---|---|
    | Le projet | mission, règles du concours, feuille de route, page de garde (nom, slogan, membres), logo (image collée) | — |
    | Analyse | chaîne d'information, classement capteur / carte / actionneur, fonctionnement du Simon, relevé de dimensions (bouton, LED, buzzer, Arduino, platine, prise USB) | classement, fonctionnement |
-   | Boîtier 3D | cahier des charges (Simon de poche), choix de l’outil (Tinkercad, tutoriel sur le serveur : Matière › Technologie › Tableau › Simon Rétro Game ; ou [Atelier 3D](https://anlito.github.io/atelier-3d/)), fichier .stl ou .obj, forme choisie, captures 3D (Ctrl+V), difficultés ; photos du professeur | — |
+   | Boîtier 3D | cahier des charges (Simon de poche), choix de l’outil (Tinkercad, tutoriel sur le serveur : Matière › Technologie › Tableau › Simon Rétro Game ; ou [Atelier 3D](https://anlito.github.io/atelier-3d/)), fichier .stl ou .obj, forme choisie, **croquis photographiés par les élèves avec la webcam** (bouton sur chaque partie à images), captures 3D (Ctrl+V), difficultés | — |
    | Affiche et fiche | consigne de l'affiche (Canva), relecture, **dépôt du PDF** ; consigne de la fiche explicative, relecture, dépôt du PDF | — |
    | Câblage | standard D2 à D10, branchements à retrouver, vérification avant l'USB | branchements |
    | Algorithme | l'algorithme en français, les étapes du jeu, les symboles de l'algorigramme | étapes, symboles |

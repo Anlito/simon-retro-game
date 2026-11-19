@@ -296,5 +296,12 @@
 .zone-coller:focus, .zone-coller:focus-visible { outline: 3px solid var(--signal); outline-offset: 2px; border-color: var(--bleu); background: var(--bleu-pale); }
 .zone-coller span { color: var(--texte-2); font-size: 0.875rem; }
 .retour-image { color: var(--consigne-texte); font-weight: 600; min-height: 1em; }
+/* Webcam : l'élève photographie une feuille */
+.webcam-zone { margin-top: 0.75rem; display: grid; gap: 0.5rem; }
+.webcam-zone[hidden] { display: none; }
+.webcam-zone video { display: block; width: 100%; max-width: 40rem; background: #000; }
+.webcam-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 0.75rem; }
+.webcam-choix { display: flex; align-items: center; gap: 0.375rem; font-weight: 600; }
+.webcam-choix select { height: 2.5rem; max-width: 16rem; font: 400 0.9375rem var(--police); }
 .fichier-depose { display: flex; align-items: center; gap: 0.5rem; padding: 0.6rem 0.8rem; border-left: 4px solid var(--vert); background: var(--vert-fond); }
 .btn-deposer { display: inline-flex; align-items: center; cursor: pointer; margin-top: 0.5rem; }

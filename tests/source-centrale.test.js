@@ -18,5 +18,5 @@ test('charte arcade : polices copiées dans le site, aucune police en ligne', ()
   }
   const css = fs.readFileSync(path.join(site, 'css/arcade.css'), 'utf8');
   assert(!/@import|fonts\.googleapis|https?:\/\//.test(css));
-  for (const nom of ['index.html', 'prof.html']) assert(fs.readFileSync(path.join(site, nom), 'utf8').includes('href="css/arcade.css"'));
+  for (const nom of ['index.html', 'prof.html']) assert(fs.readFileSync(path.join(site, nom), 'utf8').includes('href="css/arcade.css'));
 });

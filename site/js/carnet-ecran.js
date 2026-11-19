@@ -103,6 +103,7 @@
       majEntete();
       const o = ONGLETS.find((x) => x.cle === ui.onglet);
       const zone = $('.carnet-contenu', racine);
+      couperWebcam();
       fermerPhotos.forEach(fermer => fermer());
       fermerPhotos = [];
       zone.classList.toggle('revision-page', !!o && o.cle === 'retenir');
@@ -295,8 +296,65 @@
           `<div class="zone-coller" tabindex="0" role="button" data-coller="${p.id}" aria-label="Coller une capture d’écran ici (Ctrl+V)">` +
           '<strong>Clique ici, puis colle ta capture avec Ctrl + V</strong>' +
           '<span>Capture : touches Windows + Maj + S, puis sélectionne la zone de l’écran.</span>' +
-          `<label class="btn-secondaire">Ou choisir une image…<input type="file" accept="image/*" data-image-choisir="${p.id}" hidden></label></div>`) +
+          `<label class="btn-secondaire">Ou choisir une image…<input type="file" accept="image/*" data-image-choisir="${p.id}" hidden></label>` +
+          (webcamPossible() ? `<button type="button" class="btn-secondaire" data-webcam="${p.id}">Prendre une photo avec la webcam</button>` : '') +
+          `</div><div class="webcam-zone" data-webcam-zone="${p.id}" hidden></div>`) +
         `<p class="retour-image" data-retour-image="${p.id}" role="status"></p>`;
+    }
+
+    // Webcam : l'élève photographie lui-même une feuille (croquis, logo dessiné…). La photo suit le même chemin
+    // qu'une capture (réduite, gardée dans le fichier de l'équipe). Une seule webcam ouverte, coupée dès qu'on change
+    // d'onglet, qu'on réaffiche ou qu'on a pris la photo. La caméra choisie est retenue sur ce poste.
+    const CLE_WEBCAM = A.projet.id + '-webcam';
+    let webcam = null; // { flux, id }
+    const webcamPossible = () => !session.lecture && !!(global.navigator && navigator.mediaDevices && navigator.mediaDevices.getUserMedia);
+    function couperWebcam() {
+      if (!webcam) return;
+      webcam.flux.getTracks().forEach((t) => t.stop());
+      webcam = null;
+    }
+    async function ouvrirWebcam(id, cameraId) {
+      couperWebcam();
+      const zone = $(`[data-webcam-zone="${id}"]`, racine);
+      const retour = $(`[data-retour-image="${id}"]`, racine);
+      if (!zone) return;
+      let memoire = null;
+      try { memoire = cameraId || localStorage.getItem(CLE_WEBCAM); } catch { /* pas de mémoire sur ce poste */ }
+      const video = (deviceId) => ({ video: deviceId ? { deviceId: { exact: deviceId } } : { width: { ideal: 1280 }, height: { ideal: 720 } }, audio: false });
+      let flux;
+      try {
+        flux = await navigator.mediaDevices.getUserMedia(video(memoire)).catch(() => navigator.mediaDevices.getUserMedia(video(null)));
+      } catch {
+        if (retour) retour.textContent = 'La webcam ne répond pas : autorise la caméra (icône à gauche de l’adresse du site), vérifie qu’elle est branchée, ou demande à ton professeur.';
+        return;
+      }
+      webcam = { flux, id };
+      const choisie = flux.getVideoTracks()[0] && flux.getVideoTracks()[0].getSettings().deviceId;
+      try { if (choisie) localStorage.setItem(CLE_WEBCAM, choisie); } catch { /* sans mémoire */ }
+      const cameras = (await navigator.mediaDevices.enumerateDevices().catch(() => [])).filter((d) => d.kind === 'videoinput');
+      zone.innerHTML = '<video autoplay playsinline muted></video>' +
+        '<div class="webcam-actions">' +
+        `<button type="button" class="btn-principal" data-webcam-photo="${id}">Prendre la photo</button>` +
+        `<button type="button" class="btn-secondaire" data-webcam-fermer="${id}">Fermer la webcam</button>` +
+        (cameras.length > 1
+          ? `<label class="webcam-choix">Caméra <select data-webcam-camera="${id}">${cameras.map((c, i) => `<option value="${echapper(c.deviceId)}"${c.deviceId === choisie ? ' selected' : ''}>${echapper(c.label || 'Caméra ' + (i + 1))}</option>`).join('')}</select></label>`
+          : '') +
+        '</div><p class="mode-emploi">Pose la feuille à plat, bien éclairée, et remplis tout le cadre avec elle.</p>';
+      zone.hidden = false;
+      $('video', zone).srcObject = flux;
+      if (retour) retour.textContent = '';
+    }
+    function photographier(id) {
+      const v = $(`[data-webcam-zone="${id}"] video`, racine);
+      if (!webcam || !v || !v.videoWidth) return;
+      const c = document.createElement('canvas');
+      c.width = v.videoWidth;
+      c.height = v.videoHeight;
+      c.getContext('2d').drawImage(v, 0, 0);
+      c.toBlob((blob) => {
+        couperWebcam();
+        if (blob) ajouterImage(id, new File([blob], 'Photo du ' + new Date().toLocaleDateString('fr-FR') + '.jpg', { type: 'image/jpeg' }));
+      }, 'image/jpeg', 0.9);
     }
     function reduire(fichier) {
       return new Promise((ok, ko) => {
@@ -489,6 +547,7 @@
         else r.choisis = t.checked ? [t.value] : [];
       } else if (d.echelle) A.reponseCarnet(K, A.partieCarnet(C, d.echelle))[d.ligne] = Number(t.value);
       else if (d.imageChoisir) return t.files[0] && ajouterImage(d.imageChoisir, t.files[0]);
+      else if (d.webcamCamera) return ouvrirWebcam(d.webcamCamera, t.value);
       else if (d.deposer) return t.files[0] && deposer(d.deposer, t.files[0]);
       else return;
       majEtatPartie(t);
@@ -529,6 +588,12 @@
           const r = A.reponseCarnet(K, A.partieCarnet(C, b.dataset.imageRetirer));
           r.images.splice(Number(b.dataset.i), 1);
           modifie(true);
+          return montrer();
+        }
+        if (b.dataset.webcam) return ouvrirWebcam(b.dataset.webcam);
+        if (b.dataset.webcamPhoto) return photographier(b.dataset.webcamPhoto);
+        if (b.dataset.webcamFermer) {
+          couperWebcam();
           return montrer();
         }
         if (b.dataset.exercice) return A.ouvrirExercice(b.dataset.exercice);

@@ -27,7 +27,7 @@ definirCarnet({
   "onglets": [
     { "cle": "projet", "titre": "Le projet", "icone": "drapeau", "parties": ["mission", "concours", "feuille-de-route", "page-de-garde", "logo"] },
     { "cle": "analyse", "titre": "Analyse", "icone": "variables", "parties": ["chaine", "classement", "fonctionnement", "dimensions-aide", "dimensions-reperes", "dimensions"] },
-    { "cle": "boitier", "titre": "Boîtier 3D", "icone": "crayon", "photos": true, "parties": ["boitier-cahier", "boitier-outil", "forme", "modele-3d", "difficultes"] },
+    { "cle": "boitier", "titre": "Boîtier 3D", "icone": "crayon", "parties": ["boitier-cahier", "boitier-outil", "forme", "croquis", "modele-3d", "difficultes"] },
     { "cle": "affiche", "titre": "Affiche et fiche", "icone": "imprimer", "parties": ["affiche-consigne", "affiche-relecture", "affiche", "fiche-consigne", "fiche-relecture", "fiche-explicative"] },
     { "cle": "cablage", "titre": "Câblage", "icone": "bouton", "parties": ["standard", "branchements", "avant-usb"] },
     { "cle": "algorithme", "titre": "Algorithme", "icone": "decisions", "parties": ["algorithme", "algorithme-jeu", "symboles"] },
@@ -149,6 +149,8 @@ definirCarnet({
       ] },
     { "id": "forme", "type": "questions", "titre": "La forme choisie pour le boîtier",
       "questions": ["Description de la forme (à quoi ressemble-t-il ?)", "Inspiration (d’où vient l’idée ?)", "Ergonomie : comment le tient-on dans la main ?"] },
+    { "id": "croquis", "type": "image", "titre": "Nos croquis du boîtier", "nombre": 4,
+      "consigne": "Dessine ton boîtier sur une feuille (formes, vues, dimensions), puis prends-la en photo avec la webcam. Tu peux aussi photographier d’autres éléments faits sur papier." },
     { "id": "modele-3d", "type": "image", "titre": "Le modèle 3D final", "nombre": 2, "note": true,
       "consigne": "Colle une capture de ton boîtier (Tinkercad ou Atelier 3D) et, si tu veux, une deuxième vue. Pense à en mettre une aussi dans ta fiche explicative." },
     { "id": "difficultes", "type": "tableau", "titre": "Difficultés rencontrées et solutions trouvées",
