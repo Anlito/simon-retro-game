@@ -165,6 +165,7 @@ definirCarnet({
         "Elle donne envie : le nom de ton jeu Simon, un slogan commercial (une phrase courte et percutante), un visuel attrayant (logo, illustration, couleurs cohérentes avec ton produit).",
         "Pas d’explication technique ici : elles vont dans la fiche explicative.",
         "Outil : Canva. Une seule page, A4 portrait ou paysage, lisible de loin une fois projetée.",
+        "Pour ouvrir Canva : connecte-toi à e-lyco avec ton compte ÉduConnect, puis cherche Canva dans les outils à ta disposition.",
         "Dès que ton affiche est terminée, le vote a lieu : soigne-la avant de la déposer."
       ] },
     { "id": "affiche-relecture", "type": "cases", "titre": "Relecture de l’affiche avant le vote",
