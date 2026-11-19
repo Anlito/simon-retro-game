@@ -8,6 +8,8 @@
   const A = global.Atelier;
   const $ = (sel, racine) => (racine || document).querySelector(sel);
   const echapper = (s) => String(s === null || s === undefined ? '' : s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]);
+  // Texte du carnet avec des mots-repères : « **mot** » s'affiche en gras (aide à la lecture) ; le reste est échappé.
+  const riche = (s) => echapper(s).replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
 
   // Couleurs des colonnes de classement (titres et explications du « ? » dans donnees/carnet.js).
   const COULEURS_COLONNES = { capteur: '#33A1FF', carte: '#FFD23F', actionneur: '#2BE38A' };
@@ -126,7 +128,7 @@
       return (
         `<section class="carte-carnet partie-${p.type}${p.encadre ? ' encadre-' + p.encadre : ''}" data-partie="${p.id}">` +
         `<h2>${echapper(p.titre)}${etat ? `<span class="etat-partie etat-${etat}">${SYMBOLE[etat]} ${MOT_ETAT[etat]}</span>` : ''}</h2>` +
-        (p.consigne ? `<p class="mode-emploi">${echapper(p.consigne)}</p>` : '') +
+        (p.consigne ? `<p class="mode-emploi">${riche(p.consigne)}</p>` : '') +
         h + '</section>'
       );
     }
@@ -138,13 +140,13 @@
 
     function info(p) {
       if (p.id.startsWith('retenir-')) return ficheRevision(p);
-      return `<ul class="info-lignes">${(p.lignes || []).map((l) => `<li>${echapper(l)}</li>`).join('')}</ul>` + liens(p) + figures(p);
+      return `<ul class="info-lignes">${(p.lignes || []).map((l) => `<li>${riche(l)}</li>`).join('')}</ul>` + liens(p) + figures(p);
     }
     // Outils à ouvrir (ex. Tinkercad ou Atelier 3D) : une carte par outil, ouverte dans un nouvel onglet.
     function liens(p) {
       if (!p.liens) return '';
       return '<div class="liens-outils">' + p.liens.map((l) =>
-        `<div class="lien-outil"><strong>${echapper(l.titre)}</strong><p>${echapper(l.texte)}</p>` +
+        `<div class="lien-outil"><strong>${echapper(l.titre)}</strong><p>${riche(l.texte)}</p>` +
         `<a class="btn-principal" href="${echapper(l.url)}" target="_blank" rel="noopener">${echapper(l.bouton || 'Ouvrir')}</a></div>`,
       ).join('') + '</div>';
     }
@@ -152,7 +154,7 @@
     function figures(p) {
       if (!p.figures) return '';
       return '<div class="figures">' + p.figures.map((f) =>
-        `<figure class="figure-carnet"><figcaption><strong>${echapper(f.titre)}</strong>${f.note ? `<span>${echapper(f.note)}</span>` : ''}</figcaption>` +
+        `<figure class="figure-carnet"><figcaption><strong>${echapper(f.titre)}</strong>${f.note ? `<span>${riche(f.note)}</span>` : ''}</figcaption>` +
         `<div class="figure-images">${f.images.map((i) => `<img src="${echapper(i.src)}" alt="${echapper(i.alt)}" loading="lazy">`).join('')}</div></figure>`,
       ).join('') + '</div>';
     }
@@ -165,8 +167,8 @@
     function ficheRevision(p) {
       const notion = (ligne) => {
         const i = ligne.indexOf(' : ');
-        if (i > 0 && i < 60) return `<div class="revision-notion"><h3>${echapper(ligne.slice(0, i))}</h3><p>${echapper(ligne.slice(i + 3))}</p></div>`;
-        return `<p class="revision-paragraphe">${echapper(ligne)}</p>`;
+        if (i > 0 && i < 60) return `<div class="revision-notion"><h3>${echapper(ligne.slice(0, i))}</h3><p>${riche(ligne.slice(i + 3))}</p></div>`;
+        return `<p class="revision-paragraphe">${riche(ligne)}</p>`;
       };
       return '<div class="revision-notions">' + (p.lignes || []).map(notion).join('') + '</div>';
     }

@@ -129,3 +129,12 @@ test('tutoriel de câblage : il lit le même standard que le carnet et les exerc
   assert.ok(!/https?:\/\//.test(page.replace(/<svg[^>]*xmlns="http:\/\/www\.w3\.org\/2000\/svg"/g, '')), 'aucune ressource en ligne');
   assert.equal(require('../site/donnees/cablage.js').buzzer, 'D10');
 });
+
+test('carnet : mots-repères en gras (**…**) seulement là où le carnet les affiche, toujours par paires', () => {
+  const affiches = (p) => [p.consigne, ...(p.type === 'info' ? p.lignes || [] : []), ...(p.liens || []).map((l) => l.texte), ...(p.figures || []).map((f) => f.note)].filter(Boolean);
+  for (const p of carnet.parties) {
+    for (const texte of affiches(p)) assert.equal((texte.match(/\*\*/g) || []).length % 2, 0, `${p.id} : « ** » sans fin dans « ${texte} »`);
+    const ailleurs = JSON.stringify([p.titre, p.cases, p.questions, p.colonnes, p.type === 'info' ? null : p.lignes, p.choix]);
+    assert.ok(!ailleurs.includes('**'), `${p.id} : « ** » dans un texte affiché tel quel (cases, questions, trous…)`);
+  }
+});

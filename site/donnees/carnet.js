@@ -39,19 +39,19 @@ definirCarnet({
     // ---------- Le projet ----------
     { "id": "mission", "type": "info", "titre": "Vous êtes une équipe de designers",
       "lignes": [
-        "Vous n’êtes plus en classe : vous êtes un bureau d’études R&D.",
-        "La commande du client : un jeu Simon de poche, stylé et jouable. Un jeu de mémoire électronique : il montre une séquence de couleurs, le joueur doit la refaire.",
-        "Trois livrables : un boîtier modélisé en 3D et imprimable, une affiche publicitaire, et un programme qui fait vraiment fonctionner le jeu.",
-        "Ce qui compte : un objet pensé pour la main, et la cohérence entre le nom du jeu, l’affiche et le boîtier."
+        "Vous n’êtes plus en classe : vous êtes un **bureau d’études R&D**.",
+        "**La commande du client** : un **jeu Simon de poche**, stylé et jouable. Un jeu de mémoire électronique : il **montre une séquence de couleurs**, le joueur doit **la refaire**.",
+        "**Trois livrables** : un **boîtier** modélisé en 3D et imprimable, une **affiche** publicitaire, et un **programme** qui fait vraiment fonctionner le jeu.",
+        "**Ce qui compte** : un objet facile à transporter, et la **cohérence** entre le nom du jeu, l’affiche et le boîtier."
       ] },
     { "id": "concours", "type": "info", "titre": "Les règles du concours", "encadre": "regle",
       "lignes": [
-        "Chaque équipe conçoit son projet complet : boîtier, affiche et programme.",
-        "La classe vote sur les affiches, dès qu’elles sont prêtes. Un seul boîtier est imprimé : la Console Officielle.",
-        "Au Grand Tournoi, le programme de chaque équipe est envoyé dans la Console Officielle, et on joue."
+        "Chaque équipe conçoit **son projet complet** : boîtier, affiche et programme.",
+        "La classe **vote sur les affiches**, dès qu’elles sont prêtes. **Un seul boîtier est imprimé** : la Console Officielle.",
+        "Au **Grand Tournoi**, le programme de chaque équipe est envoyé dans la Console Officielle, et on joue."
       ] },
     { "id": "feuille-de-route", "type": "cases", "titre": "La feuille de route",
-      "consigne": "Coche chaque étape quand elle est terminée.",
+      "consigne": "**Coche** chaque étape quand elle est terminée.",
       "cases": [
         "S1 · Analyse : mesures des composants réels",
         "S2 à S4 · Modélisation 3D du boîtier (Tinkercad ou Atelier 3D)",
@@ -63,16 +63,16 @@ definirCarnet({
     { "id": "page-de-garde", "type": "questions", "titre": "Page de garde",
       "questions": ["Nom de l’entreprise (du bureau d’études)", "Slogan commercial du Simon", "Membres de l’équipe"] },
     { "id": "logo", "type": "image", "titre": "Notre logo", "nombre": 1,
-      "consigne": "Dessine ton logo (Canva, Paint…) ou photographie-le, puis colle l’image ici." },
+      "consigne": "**Dessine ton logo** (Canva, Paint…) ou **photographie-le**, puis colle l’image ici." },
 
     // ---------- Analyse (S1) ----------
     { "id": "chaine", "type": "info", "titre": "Comment fonctionne un objet automatisé ?",
       "lignes": [
-        "Une information entre, une action sort : capteurs → carte programmable → actionneurs.",
-        "Dans le Simon : les boutons (capteurs) → la carte Arduino (traitement) → les LED et le buzzer (actionneurs)."
+        "Une information entre, une action sort : **capteurs → carte programmable → actionneurs**.",
+        "Dans le Simon : les **boutons** (capteurs) → la **carte Arduino** (traitement) → les **LED et le buzzer** (actionneurs)."
       ] },
     { "id": "classement", "type": "classement", "titre": "Capteur, carte programmable ou actionneur ?", "note": true,
-      "consigne": "Range chaque élément dans sa famille.",
+      "consigne": "**Range** chaque élément dans **sa famille**.",
       "colonnes": [
         { "cle": "capteur", "titre": "Capteurs", "aide": "Prennent une information",
           "explication": "Un capteur détecte une information dans le monde réel (un appui, un son, une distance…) et l’envoie à la carte programmable." },
@@ -94,7 +94,7 @@ definirCarnet({
         { "nom": "Servomoteur", "image": "img/objets/servo.png", "place": "actionneur" }
       ] },
     { "id": "fonctionnement", "type": "trous", "titre": "Le fonctionnement du Simon", "note": true,
-      "consigne": "Complète les phrases.",
+      "consigne": "**Complète** les phrases.",
       "lignes": [
         "Quand le joueur appuie sur un [[bouton]], une information part vers la carte [[Arduino]].",
         "Le programme compare l’appui à la couleur attendue de la [[séquence]].",
@@ -103,82 +103,82 @@ definirCarnet({
       "choix": ["bouton", "Arduino", "séquence", "LED", "buzzer", "joueur", "câble USB", "boîtier"] },
     { "id": "dimensions-aide", "type": "info", "titre": "Mesurer avant de dessiner", "encadre": "attention",
       "lignes": [
-        "Mesure les composants réels avant de les dessiner en 3D : un boîtier mal ajusté ne se ferme pas !",
-        "Outil : le pied à coulisse, au dixième de millimètre près.",
-        "Pour un trou, ajoute un peu de jeu : environ 0,5 mm de plus que la pièce, sinon elle ne passe pas après l’impression."
+        "**Mesure les composants réels** avant de les dessiner en 3D : un boîtier mal ajusté ne se ferme pas !",
+        "**Outil** : le **pied à coulisse**, au dixième de millimètre près.",
+        "Pour un trou, **ajoute un peu de jeu** : environ **0,5 mm de plus** que la pièce, sinon elle ne passe pas après l’impression."
       ] },
     { "id": "dimensions-reperes", "type": "info", "titre": "Où mesurer ? Longueur, largeur, hauteur",
       "lignes": [
-        "Longueur : le plus grand côté, l’objet posé à plat et vu de dessus.",
-        "Largeur : l’autre côté, toujours vu de dessus.",
-        "Hauteur : l’objet vu de côté, du point le plus haut au point le plus bas, avec les pattes et les broches qui dépassent dessous.",
-        "Diamètre : pour un objet rond, la largeur du cercle. Écris-le dans Longueur et dans Largeur : en 3D, un cylindre a la même longueur et la même largeur."
+        "**Longueur** : le **plus grand côté**, l’objet posé à plat et **vu de dessus**.",
+        "**Largeur** : **l’autre côté**, toujours vu de dessus.",
+        "**Hauteur** : l’objet **vu de côté**, du point le plus haut au point le plus bas, **avec les pattes et les broches** qui dépassent dessous.",
+        "**Diamètre** : pour un **objet rond**, la largeur du cercle. Écris-le **dans Longueur et dans Largeur** : en 3D, un cylindre a la même longueur et la même largeur."
       ],
       "figures": [
         { "titre": "Bouton d’arcade", "images": [{ "src": "img/mesures/bouton-dessous.jpg", "alt": "Bouton d’arcade vu de dessous : la flèche Diamètre traverse le rond d’un bord à l’autre." }, { "src": "img/mesures/bouton-cote.jpg", "alt": "Bouton d’arcade vu de côté : la flèche Hauteur va du dessus du bouton au bout des pattes, la flèche Diamètre suit le rebord du haut." }],
-          "note": "Le diamètre se mesure sur le rebord, la partie la plus large." },
+          "note": "Le diamètre se mesure **sur le rebord**, la partie la plus large." },
         { "titre": "LED", "images": [{ "src": "img/mesures/led.jpg", "alt": "LED : la flèche Diamètre traverse le bas du plastique, la flèche Hauteur va du sommet au bas du plastique, sans les pattes." }],
-          "note": "Sans les pattes : on les plie au montage." },
+          "note": "**Sans les pattes** : on les plie au montage." },
         { "titre": "Buzzer", "images": [{ "src": "img/mesures/buzzer-dessus.jpg", "alt": "Buzzer vu de dessus : la flèche Longueur va du bord du buzzer rond au bout des broches, la flèche Largeur suit le petit côté de la carte." }, { "src": "img/mesures/buzzer-cote.jpg", "alt": "Buzzer vu de côté : la flèche Hauteur va du dessus du buzzer au bas des soudures." }],
-          "note": "La longueur va jusqu’au bout des broches." },
+          "note": "La longueur va **jusqu’au bout des broches**." },
         { "titre": "Carte Arduino Uno", "images": [{ "src": "img/mesures/arduino-dessus.jpg", "alt": "Carte Arduino vue de dessus : la flèche Longueur va du bord gauche au bout de la prise USB, la flèche Largeur suit le petit côté de la carte." }, { "src": "img/mesures/arduino-cote.jpg", "alt": "Carte Arduino vue de côté : la flèche Hauteur va du dessus de la prise USB au bout des broches sous la carte." }],
-          "note": "La prise USB dépasse : elle compte dans la longueur et dans la hauteur." },
+          "note": "**La prise USB dépasse** : elle compte dans la longueur et dans la hauteur." },
         { "titre": "Platine d’essai", "images": [{ "src": "img/mesures/platine-dessus.jpg", "alt": "Platine d’essai vue de dessus : la flèche Longueur suit le grand côté, la flèche Largeur le petit côté." }, { "src": "img/mesures/platine-cote.jpg", "alt": "Platine d’essai vue de côté : la flèche Hauteur va du dessus du plastique au bas de la mousse collée dessous." }],
-          "note": "Les petits ergots sur les côtés ne comptent pas." }
+          "note": "Les petits ergots sur les côtés **ne comptent pas**." }
       ] },
     { "id": "dimensions", "type": "tableau", "titre": "Relevé de dimensions", "note": true,
-      "consigne": "Mesure chaque composant (en millimètres) et note l’outil utilisé. Les photos au-dessus montrent où mesurer.",
+      "consigne": "**Mesure** chaque composant (**en millimètres**) et note l’outil utilisé. Les **photos au-dessus** montrent où mesurer.",
       "colonnes": ["Composant", "Longueur (mm)", "Largeur (mm)", "Hauteur (mm)", "Outil utilisé"],
       "lignes": ["Bouton poussoir", "LED", "Buzzer", "Carte Arduino Uno", "Platine d’essai (breadboard)"] },
 
     // ---------- Boîtier 3D (S2 à S4) ----------
     { "id": "boitier-cahier", "type": "info", "titre": "Le cahier des charges du boîtier", "encadre": "regle",
       "lignes": [
-        "C’est un Simon de poche, facile à transporter : le plus compact possible, dans ces limites.",
-        "Au plus 200 mm × 200 mm (vu de dessus) : c’est la taille du plateau de l’imprimante 3D.",
-        "Au moins 50 mm de hauteur : la carte Arduino, les boutons poussoirs et le câblage doivent tenir dedans.",
-        "4 trous pour les boutons, 4 pour les LED, une ouverture pour le son du buzzer et un accès pour le câble USB.",
-        "Un couvercle pour fermer la boîte, et assez de place dedans pour l’Arduino et la platine (voir ton relevé de dimensions).",
-        "Modélisation sur Tinkercad ou dans l’Atelier 3D (au choix, juste en dessous), puis téléchargement du fichier .stl ou .obj pour l’impression 3D."
+        "C’est un **Simon de poche**, facile à transporter : le **plus compact possible**, dans ces limites.",
+        "**Au plus 200 mm × 200 mm** (vu de dessus) : c’est la taille du plateau de l’imprimante 3D.",
+        "**Au moins 50 mm de hauteur** : la carte Arduino, les boutons poussoirs et le câblage doivent tenir dedans.",
+        "**4 trous pour les boutons**, **4 pour les LED**, une ouverture pour le **son du buzzer** et un accès pour le **câble USB**.",
+        "**Un couvercle** pour fermer la boîte, et assez de place dedans pour l’Arduino et la platine (voir ton **relevé de dimensions**).",
+        "Modélisation sur **Tinkercad** ou dans l’**Atelier 3D** (au choix, juste en dessous), puis téléchargement du **fichier .stl ou .obj** pour l’impression 3D."
       ] },
     { "id": "boitier-outil", "type": "info", "titre": "Choisis ton outil de modélisation",
-      "lignes": ["Deux outils au choix pour réaliser ta modélisation 3D. À la fin, télécharge ton fichier .stl ou .obj : c’est lui qui part à l’imprimante 3D."],
+      "lignes": ["**Deux outils au choix** pour réaliser ta modélisation 3D. À la fin, **télécharge ton fichier .stl ou .obj** : c’est lui qui part à l’imprimante 3D."],
       "liens": [
         { "titre": "Tinkercad", "url": "https://www.tinkercad.com/", "bouton": "Ouvrir Tinkercad",
-          "texte": "L’outil de modélisation 3D en ligne. Le tutoriel est sur le serveur : Matière › Technologie › Tableau › Simon Rétro Game." },
+          "texte": "L’outil de modélisation 3D en ligne. **Le tutoriel est sur le serveur** : **Matière › Technologie › Tableau › Simon Rétro Game**." },
         { "titre": "Atelier 3D", "url": "https://anlito.github.io/atelier-3d/", "bouton": "Ouvrir l’Atelier 3D",
-          "texte": "Plus simple, avec l’assistant Pixel qui explique tout en direct. Tu peux suivre le projet guidé « La boîte du jeu Simon »." }
+          "texte": "**Plus simple**, avec l’assistant Pixel qui explique tout en direct. Tu peux suivre le projet guidé **« La boîte du jeu Simon »**." }
       ] },
     { "id": "forme", "type": "questions", "titre": "La forme choisie pour le boîtier",
       "questions": ["Description de la forme (à quoi ressemble-t-il ?)", "Inspiration (d’où vient l’idée ?)", "Ergonomie : comment le tient-on dans la main ?"] },
     { "id": "croquis", "type": "image", "titre": "Nos croquis du boîtier", "nombre": 4,
-      "consigne": "Dessine ton boîtier sur une feuille (formes, vues, dimensions), puis prends-la en photo avec la webcam. Tu peux aussi photographier d’autres éléments faits sur papier." },
+      "consigne": "**Dessine ton boîtier sur une feuille** (formes, vues, dimensions), puis **prends-la en photo avec la webcam**. Tu peux aussi photographier d’autres éléments faits sur papier." },
     { "id": "modele-3d", "type": "image", "titre": "Le modèle 3D final", "nombre": 2, "note": true,
-      "consigne": "Colle une capture de ton boîtier (Tinkercad ou Atelier 3D) et, si tu veux, une deuxième vue. Pense à en mettre une aussi dans ta fiche explicative." },
+      "consigne": "**Colle une capture de ton boîtier** (Tinkercad ou Atelier 3D) et, si tu veux, une deuxième vue. Pense à en mettre une aussi **dans ta fiche explicative**." },
     { "id": "difficultes", "type": "tableau", "titre": "Difficultés rencontrées et solutions trouvées",
       "colonnes": ["Difficulté", "Solution trouvée"], "lignes": 3 },
 
     // ---------- Affiche et fiche explicative (S5 et S6) ----------
     { "id": "affiche-consigne", "type": "info", "titre": "L’affiche publicitaire",
       "lignes": [
-        "Ton affiche est ton unique argument de vente : c’est elle, et seulement elle, qui est présentée à la classe au moment du vote.",
-        "Elle donne envie : le nom de ton jeu Simon, un slogan commercial (une phrase courte et percutante), un visuel attrayant (logo, illustration, couleurs cohérentes avec ton produit).",
-        "Pas d’explication technique ici : elles vont dans la fiche explicative.",
-        "Outil : Canva. Une seule page, A4 portrait ou paysage, lisible de loin une fois projetée.",
-        "Pour ouvrir Canva : connecte-toi à e-lyco avec ton compte ÉduConnect, puis cherche Canva dans les outils à ta disposition.",
-        "Dès que ton affiche est terminée, le vote a lieu : soigne-la avant de la déposer."
+        "Ton affiche est ton **unique argument de vente** : c’est elle, et seulement elle, qui est **présentée à la classe au moment du vote**.",
+        "Elle donne envie : le **nom de ton jeu** Simon, un **slogan commercial** (une phrase courte et percutante), un **visuel attrayant** (logo, illustration, couleurs cohérentes avec ton produit).",
+        "**Pas d’explication technique** ici : elles vont dans la fiche explicative.",
+        "**Outil : Canva**. **Une seule page**, A4 portrait ou paysage, **lisible de loin** une fois projetée.",
+        "**Pour ouvrir Canva** : connecte-toi à **e-lyco** avec ton compte **ÉduConnect**, puis cherche **Canva** dans les outils à ta disposition.",
+        "Dès que ton affiche est terminée, **le vote a lieu** : soigne-la avant de la déposer."
       ] },
     { "id": "affiche-relecture", "type": "cases", "titre": "Relecture de l’affiche avant le vote",
       "cases": ["Le nom du jeu et le slogan sont sur l’affiche", "Le visuel est cohérent et soigné", "Le texte est lisible une fois projeté"] },
     { "id": "affiche", "type": "fichier", "titre": "Déposer notre affiche (PDF)", "note": true,
       "prefixe": "Affiche", "extension": ".pdf", "accepte": ".pdf,application/pdf",
-      "consigne": "Dans Canva : « Partager », puis « Télécharger », type de fichier « PDF standard ». Dépose ensuite ce PDF ici : ton professeur le récupère pour le vote." },
+      "consigne": "Dans Canva : **« Partager »**, puis **« Télécharger »**, type de fichier **« PDF standard »**. **Dépose ensuite ce PDF ici** : ton professeur le récupère pour le vote." },
     { "id": "fiche-consigne", "type": "info", "titre": "La fiche explicative du jeu",
       "lignes": [
-        "Elle n’est pas projetée au vote : c’est la preuve technique de ton projet.",
-        "Le guide d’utilisation : les règles du Simon expliquées simplement à un joueur qui découvre le jeu (exemple : « Mémorise la séquence de couleurs, puis reproduis-la en appuyant sur les bons boutons. Une erreur, et la partie s’arrête ! »).",
-        "La fiche technique : une capture de ton boîtier en 3D (Tinkercad ou Atelier 3D), avec ses dimensions générales, et le tableau des capteurs et actionneurs (type, élément, rôle).",
-        "Outil : Canva ou LibreOffice Writer. Une page A4, en PDF."
+        "Elle n’est pas projetée au vote : c’est la **preuve technique** de ton projet.",
+        "**Le guide d’utilisation** : les **règles du Simon** expliquées simplement à un joueur qui découvre le jeu (exemple : « Mémorise la séquence de couleurs, puis reproduis-la en appuyant sur les bons boutons. Une erreur, et la partie s’arrête ! »).",
+        "**La fiche technique** : une **capture de ton boîtier en 3D** (Tinkercad ou Atelier 3D), avec ses **dimensions générales**, et le **tableau des capteurs et actionneurs** (type, élément, rôle).",
+        "**Outil** : Canva ou LibreOffice Writer. **Une page A4, en PDF**."
       ] },
     { "id": "fiche-relecture", "type": "cases", "titre": "Relecture de la fiche explicative",
       "cases": ["Les règles sont expliquées simplement", "La capture 3D a ses dimensions", "Le tableau capteurs / actionneurs est complet"] },
@@ -188,13 +188,13 @@ definirCarnet({
     // ---------- Câblage (S7) ----------
     { "id": "standard", "type": "info", "titre": "Le standard de câblage, imposé à tous", "encadre": "regle",
       "lignes": [
-        "Toutes les consoles sont câblées de la même façon : ton programme marche sur n’importe laquelle, et sur la Console Officielle.",
-        "Le tutoriel de câblage (lien en haut de la page) montre chaque branchement, étape par étape.",
-        "Fil coloré = signal (vers la broche de l’Arduino) ; fil noir ou marron = masse (GND), sur le rail − de la platine.",
-        "Un seul fil relie le rail − de la platine au GND de l’Arduino."
+        "Toutes les consoles sont **câblées de la même façon** : ton programme marche sur n’importe laquelle, et sur la Console Officielle.",
+        "Le **tutoriel de câblage** (lien en haut de la page) montre chaque branchement, étape par étape.",
+        "**Fil coloré = signal** (vers la broche de l’Arduino) ; **fil noir ou marron = masse (GND)**, sur le rail − de la platine.",
+        "**Un seul fil** relie le rail − de la platine au **GND de l’Arduino**."
       ] },
     { "id": "branchements", "type": "trous", "titre": "Les branchements de la console", "note": true,
-      "consigne": "Retrouve, avec le tutoriel de câblage, la broche de chaque composant.",
+      "consigne": "Retrouve, avec le **tutoriel de câblage**, **la broche** de chaque composant.",
       "lignes": [
         "Bouton bleu → [[D2]] · LED bleue → [[D3]]",
         "Bouton vert → [[D4]] · LED verte → [[D5]]",
@@ -217,10 +217,10 @@ definirCarnet({
 
     // ---------- Algorithme ----------
     { "id": "algorithme", "type": "questions", "titre": "L’algorithme, en français",
-      "consigne": "Avant de programmer, décris avec tes mots ce que doit faire le jeu. Exemple : « Si le bouton rouge est appuyé, alors la LED rouge s’allume et le buzzer joue sa note. »",
+      "consigne": "**Avant de programmer**, **décris avec tes mots** ce que doit faire le jeu. Exemple : « Si le bouton rouge est appuyé, alors la LED rouge s’allume et le buzzer joue sa note. »",
       "questions": ["Cas du bouton bleu", "Cas du bouton vert", "Cas du bouton jaune", "Cas du bouton rouge", "Que se passe-t-il si le joueur se trompe ?"] },
     { "id": "algorithme-jeu", "type": "trous", "titre": "Les étapes du jeu", "note": true,
-      "consigne": "Remets les étapes du Simon dans l’ordre.",
+      "consigne": "**Remets les étapes** du Simon **dans l’ordre**.",
       "lignes": [
         "1. Le jeu [[montre les couleurs de la séquence]].",
         "2. Le jeu [[attend l’appui du joueur]].",
@@ -239,7 +239,7 @@ definirCarnet({
 
     // ---------- Programmation ----------
     { "id": "programmation", "type": "programmation", "titre": "Programmation",
-      "consigne": "Programme ton Simon en blocs, exercice par exercice : réussis un exercice pour ouvrir le suivant. Tu peux tester sur la console du simulateur, puis sur ton kit. L’exercice 11, « Mon Simon », est celui du Grand Tournoi." },
+      "consigne": "**Programme ton Simon en blocs**, exercice par exercice : **réussis un exercice pour ouvrir le suivant**. Tu peux tester sur la console du simulateur, puis sur ton kit. **L’exercice 11, « Mon Simon »**, est celui du Grand Tournoi." },
 
     // ---------- Bilan ----------
     { "id": "autoevaluation", "type": "echelle", "titre": "Grille d’auto-évaluation",
@@ -259,29 +259,29 @@ definirCarnet({
     // ---------- À retenir (fiche « Ce qu'il faut retenir ») ----------
     { "id": "retenir-chaine", "type": "info", "titre": "La chaîne d’information", "court": "La chaîne d’information",
       "lignes": [
-        "Capteurs : reçoivent des informations (les 4 boutons détectent l’appui du joueur).",
-        "Carte programmable : reçoit, analyse et décide (l’Arduino Uno).",
-        "Actionneurs : agissent sur le monde (les LED qui s’allument, le buzzer qui joue un son)."
+        "Capteurs : **reçoivent des informations** (les 4 boutons détectent l’appui du joueur).",
+        "Carte programmable : **reçoit, analyse et décide** (l’Arduino Uno).",
+        "Actionneurs : **agissent sur le monde** (les LED qui s’allument, le buzzer qui joue un son)."
       ] },
     { "id": "retenir-vocabulaire", "type": "info", "titre": "Vocabulaire à connaître", "court": "Le vocabulaire",
       "lignes": [
-        "Objet technique : objet fabriqué par l’humain qui répond à un besoin (le Simon).",
-        "Besoin, problématique : ce que l’utilisateur cherche à faire grâce à l’objet (mémoriser et rejouer une séquence de couleurs sans se tromper).",
-        "Cahier des charges : la liste des attentes que la solution doit respecter (le standard de câblage D2 à D10, les éléments obligatoires de l’affiche).",
-        "Prototype : une première version réelle de l’objet, construite pour être testée (la Console Officielle avant le Grand Tournoi)."
+        "Objet technique : objet **fabriqué par l’humain** qui **répond à un besoin** (le Simon).",
+        "Besoin, problématique : **ce que l’utilisateur cherche à faire** grâce à l’objet (mémoriser et rejouer une séquence de couleurs sans se tromper).",
+        "Cahier des charges : **la liste des attentes** que la solution doit respecter (le standard de câblage D2 à D10, les éléments obligatoires de l’affiche).",
+        "Prototype : une **première version réelle** de l’objet, construite pour **être testée** (la Console Officielle avant le Grand Tournoi)."
       ] },
     { "id": "retenir-algorithme", "type": "info", "titre": "Algorithme, algorigramme, programme", "court": "Algorithme et programme",
       "lignes": [
-        "Algorithme : suite d’étapes, écrite en langage naturel, pour résoudre un problème (montrer la séquence, attendre la réponse, comparer).",
-        "Algorigramme : le dessin de l’algorithme, avec des symboles reliés par des flèches : ovale (début, fin), rectangle (action), losange (condition).",
-        "Programme : l’algorigramme traduit en blocs ou en code pour être exécuté par la carte."
+        "Algorithme : **suite d’étapes**, écrite **en langage naturel**, pour résoudre un problème (montrer la séquence, attendre la réponse, comparer).",
+        "Algorigramme : **le dessin de l’algorithme**, avec des symboles reliés par des flèches : **ovale** (début, fin), **rectangle** (action), **losange** (condition).",
+        "Programme : l’algorigramme **traduit en blocs ou en code** pour être **exécuté par la carte**."
       ] },
     { "id": "retenir-donnees", "type": "info", "titre": "Programmer avec des données structurées", "court": "Variables, listes, fonctions",
       "lignes": [
-        "Variable : une boîte nommée qui contient une valeur, modifiable au cours du programme (etape).",
-        "Liste : plusieurs données rangées sous un seul nom, dans un ordre précis (la liste sequence ; le premier élément est le n° 1).",
-        "Fonction : un groupe de blocs avec un nom, qu’on appelle autant de fois qu’on veut (allumer avec couleur).",
-        "Condition (si…) : une action qui ne s’exécute que si une condition est vraie. Boucle (répéter…) : une action répétée sans la recopier."
+        "Variable : une **boîte nommée** qui contient **une valeur**, modifiable au cours du programme (etape).",
+        "Liste : **plusieurs données** rangées sous **un seul nom**, dans un ordre précis (la liste sequence ; le premier élément est le n° 1).",
+        "Fonction : un **groupe de blocs avec un nom**, qu’on **appelle** autant de fois qu’on veut (allumer avec couleur).",
+        "Condition (si…) : une action qui ne s’exécute que **si une condition est vraie**. **Boucle (répéter…)** : une action **répétée sans la recopier**."
       ] }
   ]
 });
