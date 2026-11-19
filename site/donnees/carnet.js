@@ -233,10 +233,9 @@ definirCarnet({
       "lignes": [
         "L’ovale représente [[le début ou la fin du programme]].",
         "Le rectangle représente [[une action à réaliser]].",
-        "Le losange représente [[une condition (oui ou non)]].",
-        "Le rectangle à double bord représente [[une fonction (un sous-programme)]]."
+        "Le losange représente [[une condition (oui ou non)]]."
       ],
-      "choix": ["le début ou la fin du programme", "une action à réaliser", "une condition (oui ou non)", "une fonction (un sous-programme)"] },
+      "choix": ["le début ou la fin du programme", "une action à réaliser", "une condition (oui ou non)"] },
 
     // ---------- Programmation ----------
     { "id": "programmation", "type": "programmation", "titre": "Programmation",
@@ -274,7 +273,7 @@ definirCarnet({
     { "id": "retenir-algorithme", "type": "info", "titre": "Algorithme, algorigramme, programme", "court": "Algorithme et programme",
       "lignes": [
         "Algorithme : suite d’étapes, écrite en langage naturel, pour résoudre un problème (montrer la séquence, attendre la réponse, comparer).",
-        "Algorigramme : le dessin de l’algorithme, avec des symboles reliés par des flèches : ovale (début, fin), rectangle (action), losange (condition), rectangle à double bord (fonction).",
+        "Algorigramme : le dessin de l’algorithme, avec des symboles reliés par des flèches : ovale (début, fin), rectangle (action), losange (condition).",
         "Programme : l’algorigramme traduit en blocs ou en code pour être exécuté par la carte."
       ] },
     { "id": "retenir-donnees", "type": "info", "titre": "Programmer avec des données structurées", "court": "Variables, listes, fonctions",
